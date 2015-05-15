@@ -37,7 +37,6 @@ defmodule Welcome.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    user_params |> IO.inspect
     changeset = User.changeset(%User{}, user_params)
 
     if changeset.valid? do
