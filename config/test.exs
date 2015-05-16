@@ -17,3 +17,13 @@ config :welcome, Welcome.Repo,
   database: "welcome_test",
   size: 1,
   max_overflow: 0
+
+# Openmaize authentication library configuration
+config :openmaize,
+  user_model: Welcome.User,
+  repo: Welcome.Repo,
+  crypto: Comeonin.Bcrypt,
+  storage_method: "cookie",
+  secret_key: "you will never guess",
+  login_page: "users/login",
+  token_validity: 600

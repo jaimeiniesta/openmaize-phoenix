@@ -31,6 +31,12 @@ defmodule Welcome.UserController do
     end
   end
 
+  def logout(conn, _params) do
+    conn
+    |> put_flash(:notice, "You're logged out.")
+    |> redirect(to: page_path(conn, :index))
+  end
+
   def new(conn, _params) do
     changeset = User.changeset(%User{})
     render(conn, "new.html", changeset: changeset)

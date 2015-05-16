@@ -16,8 +16,9 @@ defmodule Welcome.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/users/login", UserController, :login
-    post "/users/login", UserController, :login_user
+    get "/users/login", UserController, :login, as: :login
+    post "/users/login", UserController, :login_user, as: :login
+    post "/users/logout", UserController, :logout, as: :logout
     resources "/users", UserController
   end
 

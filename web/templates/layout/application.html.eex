@@ -16,8 +16,8 @@
       <nav class="navbar navbar-default" role="navigation">
         <ul class="nav navbar-nav">
           <li><a href="<%= page_path @conn, :index %>">Home</a></li>
-          <li><a href="<%= user_path @conn, :index %>">User page</a></li>
-          <li><a href="<%= user_path @conn, :login %>">Login</a></li>
+          <li><a href="<%= user_path @conn, :index %>">Users</a></li>
+          <li><a href="<%= login_path @conn, :login %>">Login</a></li>
         </ul>
       </nav>
 

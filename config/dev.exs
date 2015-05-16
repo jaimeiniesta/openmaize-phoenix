@@ -32,3 +32,13 @@ config :welcome, Welcome.Repo,
   username: "postgres",
   password: "postgres",
   database: "welcome_dev"
+
+# Openmaize authentication library configuration
+config :openmaize,
+  user_model: Welcome.User,
+  repo: Welcome.Repo,
+  crypto: Comeonin.Bcrypt,
+  storage_method: "cookie",
+  secret_key: "you will never guess",
+  login_page: "users/login",
+  token_validity: 600
