@@ -3,6 +3,7 @@ defmodule Welcome.UserController do
 
   alias Welcome.User
   alias Comeonin.Bcrypt
+  alias Comeonin.Password
 
   plug :scrub_params, "user" when action in [:create, :update]
   plug :action
@@ -17,8 +18,7 @@ defmodule Welcome.UserController do
     render conn, "login.html", changeset: changeset
   end
 
-  def login_user(conn, _params) do
-    %{"name" => name, "password" => password} = Map.get(conn.params, "user")
+  def login_user(conn, %{"user" => %{"name" => name, "password" => password}}) do
     user = check_login(name, password)
     if user do
       conn
@@ -43,6 +43,7 @@ defmodule Welcome.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user_params = create_hash(user_params)
     changeset = User.changeset(%User{}, user_params)
 
     if changeset.valid? do
@@ -102,5 +103,12 @@ defmodule Welcome.UserController do
   defp check_user(nil, _), do: Bcrypt.dummy_checkpw
   defp check_user(user, password) do
     Bcrypt.checkpw(password, user.password_hash) and user
+  end
+
+  defp create_hash(user_params) do
+    {password, user_params} = Map.pop(user_params, "password")
+    if Password.valid_password?(password) do
+      Map.put_new(user_params, "password_hash", Bcrypt.hashpwsalt(password))
+    end
   end
 end
