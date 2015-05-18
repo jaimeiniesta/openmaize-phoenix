@@ -40,5 +40,5 @@ config :openmaize,
   crypto: Comeonin.Bcrypt,
   storage_method: "cookie",
   secret_key: "you will never guess",
-  login_page: "users/login",
+  login_page: "/users/login",
   token_validity: 600
