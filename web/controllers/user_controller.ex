@@ -3,7 +3,6 @@ defmodule Welcome.UserController do
 
   alias Welcome.User
   alias Comeonin.Bcrypt
-  alias Comeonin.Password
 
   plug :scrub_params, "user" when action in [:create, :update]
   plug :action
@@ -43,9 +42,18 @@ defmodule Welcome.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    user_params = create_hash(user_params)
-    changeset = User.changeset(%User{}, user_params)
+    user_params = Comeonin.create_user(user_params)
+    if is_map(user_params) do
+      create_new(conn, user_params)
+    else
+      conn
+      |> put_flash(:error, user_params)
+      |> redirect(to: user_path(conn, :new))
+    end
+  end
 
+  def create_new(conn, user_params) do
+    changeset = User.changeset(%User{}, user_params)
     if changeset.valid? do
       Repo.insert(changeset)
 
@@ -103,12 +111,5 @@ defmodule Welcome.UserController do
   defp check_user(nil, _), do: Bcrypt.dummy_checkpw
   defp check_user(user, password) do
     Bcrypt.checkpw(password, user.password_hash) and user
-  end
-
-  defp create_hash(user_params) do
-    {password, user_params} = Map.pop(user_params, "password")
-    if Password.valid_password?(password) do
-      Map.put_new(user_params, "password_hash", Bcrypt.hashpwsalt(password))
-    end
   end
 end
