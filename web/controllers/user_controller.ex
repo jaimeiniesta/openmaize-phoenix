@@ -42,17 +42,10 @@ defmodule Welcome.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    user_params = Comeonin.create_user(user_params)
-    if is_map(user_params) do
-      create_new(conn, user_params)
-    else
-      conn
-      |> put_flash(:error, user_params)
-      |> redirect(to: user_path(conn, :new))
-    end
+    create_new(conn, Comeonin.create_user(user_params))
   end
 
-  def create_new(conn, user_params) do
+  def create_new(conn, {:ok, user_params}) do
     changeset = User.changeset(%User{}, user_params)
     if changeset.valid? do
       Repo.insert(changeset)
@@ -63,6 +56,12 @@ defmodule Welcome.UserController do
     else
       render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def create_new(conn, {:error, message}) do
+    conn
+    |> put_flash(:error, message)
+    |> redirect(to: user_path(conn, :new))
   end
 
   def show(conn, %{"id" => id}) do
