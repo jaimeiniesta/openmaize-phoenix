@@ -18,10 +18,12 @@ defmodule Welcome.UserController do
   end
 
   def login_user(conn, _params) do
+    IO.puts "*****Should we be seeing this?*****"
     Openmaize.Login.call(conn, [])
   end
 
   def logout(conn, _params) do
+    IO.puts "*****Should we be seeing this?*****"
     Openmaize.Logout.call(conn, [])
   end
 

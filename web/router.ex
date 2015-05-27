@@ -6,7 +6,10 @@ defmodule Welcome.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-    plug :open_sesame
+  end
+
+  pipeline :authenticate do
+    plug :open_maize
   end
 
   pipeline :api do
@@ -14,21 +17,27 @@ defmodule Welcome.Router do
   end
 
   scope "/", Welcome do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index, as: :root
-    get "/users/login", UserController, :login, as: :login
-    post "/users/login", UserController, :login_user, as: :login
-    post "/users/logout", UserController, :logout, as: :logout
-    resources "/users", UserController
   end
 
-  def open_sesame(conn, opts \\ []) do
-    auth_list = ["users"]
-    if Enum.any?(conn.path_info, fn x -> x in auth_list end) do
-      Openmaize.Authenticate.call(conn, opts)
-    else
-      conn
-    end
+  scope "/users", Welcome do
+    pipe_through [:browser, :authenticate]
+
+    get "/login", UserController, :login, as: :login
+    post "/login", UserController, :login_user, as: :login
+    get "/logout", UserController, :logout, as: :logout
+    resources "/", UserController
+  end
+
+  scope "/admin", Welcome do
+    pipe_through [:browser, :authenticate]
+
+    get "/", AdminController, :index
+  end
+
+  def open_maize(conn, opts \\ []) do
+    Openmaize.Authenticate.call(conn, opts)
   end
 end

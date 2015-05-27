@@ -20,7 +20,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="<%= login_path @conn, :login %>">Login</a></li>
-          <li><a href="<%= logout_path @conn, :logout, method: :post %>">Logout</a></li>
+          <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
         </ul>
       </nav>
 
