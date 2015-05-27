@@ -8,6 +8,7 @@ defmodule Welcome.UserController do
   plug :action
 
   def index(conn, _params) do
+    IO.inspect conn
     users = Repo.all(User)
     render(conn, "index.html", users: users)
   end
@@ -17,7 +18,11 @@ defmodule Welcome.UserController do
     render conn, "login.html", changeset: changeset
   end
 
-  def login_user(conn, %{"user" => %{"name" => name, "password" => password}}) do
+  def login_user(conn, _params) do
+    Openmaize.Login.call(conn, []) |> IO.inspect
+  end
+
+  def login_user_old(conn, %{"user" => %{"name" => name, "password" => password}}) do
     user = check_login(name, password)
     if user do
       conn

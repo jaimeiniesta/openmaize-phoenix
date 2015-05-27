@@ -6,6 +6,7 @@ defmodule Welcome.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
+    plug :open_sesame
   end
 
   pipeline :api do
@@ -22,8 +23,12 @@ defmodule Welcome.Router do
     resources "/users", UserController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Welcome do
-  #   pipe_through :api
-  # end
+  def open_sesame(conn, opts \\ []) do
+    auth_list = ["users"]
+    if Enum.any?(conn.path_info, fn x -> x in auth_list end) do
+      Openmaize.Authenticate.call(conn, opts)
+    else
+      conn
+    end
+  end
 end
