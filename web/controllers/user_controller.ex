@@ -2,13 +2,12 @@ defmodule Welcome.UserController do
   use Welcome.Web, :controller
 
   alias Welcome.User
-  alias Comeonin.Bcrypt
+  alias Openmaize.Signup
 
   plug :scrub_params, "user" when action in [:create, :update]
   plug :action
 
   def index(conn, _params) do
-    IO.inspect conn
     users = Repo.all(User)
     render(conn, "index.html", users: users)
   end
@@ -19,26 +18,11 @@ defmodule Welcome.UserController do
   end
 
   def login_user(conn, _params) do
-    Openmaize.Login.call(conn, []) |> IO.inspect
-  end
-
-  def login_user_old(conn, %{"user" => %{"name" => name, "password" => password}}) do
-    user = check_login(name, password)
-    if user do
-      conn
-      |> put_flash(:info, "Logged in successfully.")
-      |> redirect(to: user_path(conn, :show, user))
-    else
-      conn
-      |> put_flash(:error, "Invalid credentials")
-      |> redirect(to: user_path(conn, :login))
-    end
+    Openmaize.Login.call(conn, [])
   end
 
   def logout(conn, _params) do
-    conn
-    |> put_flash(:notice, "You're logged out.")
-    |> redirect(to: page_path(conn, :index))
+    Openmaize.Logout.call(conn, [])
   end
 
   def new(conn, _params) do
@@ -47,7 +31,7 @@ defmodule Welcome.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    create_new(conn, Comeonin.create_user(user_params))
+    create_new(conn, Signup.create_user(user_params))
   end
 
   def create_new(conn, {:ok, user_params}) do
@@ -104,16 +88,4 @@ defmodule Welcome.UserController do
     |> redirect(to: user_path(conn, :index))
   end
 
-  defp check_login(name, password) do
-    from(user in User,
-    where: user.name == ^name,
-    select: user)
-    |> Repo.one
-    |> check_user(password)
-  end
-
-  defp check_user(nil, _), do: Bcrypt.dummy_checkpw
-  defp check_user(user, password) do
-    Bcrypt.checkpw(password, user.password_hash) and user
-  end
 end
