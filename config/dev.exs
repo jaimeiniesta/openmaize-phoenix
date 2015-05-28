@@ -40,5 +40,4 @@ config :openmaize,
   crypto: :bcrypt,
   storage_method: "cookie",
   secret_key: "you will never guess",
-  login_page: ":4000/users/login",
   token_validity: 600
