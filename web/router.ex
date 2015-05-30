@@ -9,7 +9,7 @@ defmodule Welcome.Router do
   end
 
   pipeline :authenticate do
-    plug Openmaize.Authenticate
+    plug :openmaize
   end
 
   pipeline :api do
@@ -35,6 +35,10 @@ defmodule Welcome.Router do
     pipe_through [:browser, :authenticate]
 
     get "/", AdminController, :index
+  end
+
+  def openmaize(conn, _opts) do
+    Openmaize.Authenticate.call(conn, [])
   end
 
 end

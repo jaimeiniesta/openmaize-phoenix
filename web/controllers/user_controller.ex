@@ -17,16 +17,6 @@ defmodule Welcome.UserController do
     render conn, "login.html", changeset: changeset
   end
 
-  def login_user(conn, _params) do
-    IO.puts "*****Should we be seeing this?*****"
-    Openmaize.Login.call(conn, [])
-  end
-
-  def logout(conn, _params) do
-    IO.puts "*****Should we be seeing this?*****"
-    Openmaize.Logout.call(conn, [])
-  end
-
   def new(conn, _params) do
     changeset = User.changeset(%User{})
     render(conn, "new.html", changeset: changeset)
