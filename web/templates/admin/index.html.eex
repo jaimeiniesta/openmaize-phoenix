@@ -1,4 +1,4 @@
 <div class="jumbotron">
-  <h2>Hello big boss!</h2>
+  <h2>Hi, <%= String.capitalize @current_user[:name] %>, how's it hanging?</h2>
   <p class="lead">Shouldn't you be taking it easy?</p>
 </div>

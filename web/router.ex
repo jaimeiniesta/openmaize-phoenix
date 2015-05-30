@@ -6,10 +6,7 @@ defmodule Welcome.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-  end
-
-  pipeline :authenticate do
-    plug :openmaize
+    plug Openmaize.Authenticate
   end
 
   pipeline :api do
@@ -20,25 +17,13 @@ defmodule Welcome.Router do
     pipe_through :browser
 
     get "/", PageController, :index, as: :root
-  end
 
-  scope "/users", Welcome do
-    pipe_through [:browser, :authenticate]
+    resources "/users", UserController
 
-    get "/login", UserController, :login, as: :login
-    post "/login", UserController, :login_user, as: :login
-    get "/logout", UserController, :logout, as: :logout
-    resources "/", UserController
-  end
-
-  scope "/admin", Welcome do
-    pipe_through [:browser, :authenticate]
-
-    get "/", AdminController, :index
-  end
-
-  def openmaize(conn, _opts) do
-    Openmaize.Authenticate.call(conn, [])
+    get "/admin", AdminController, :index
+    get "/admin/login", AdminController, :login, as: :login
+    post "/admin/login", AdminController, :login_user, as: :login
+    get "/admin/logout", AdminController, :logout, as: :logout
   end
 
 end

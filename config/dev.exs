@@ -38,6 +38,8 @@ config :openmaize,
   user_model: Welcome.User,
   repo: Welcome.Repo,
   crypto: :bcrypt,
+  login_dir: "admin",
+  protected: ["admin"],
   storage_method: "cookie",
   secret_key: "you will never guess",
   token_validity: 600

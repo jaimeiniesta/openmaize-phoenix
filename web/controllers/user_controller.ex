@@ -12,11 +12,6 @@ defmodule Welcome.UserController do
     render(conn, "index.html", users: users)
   end
 
-  def login(conn, _params) do
-    changeset = User.changeset(%User{})
-    render conn, "login.html", changeset: changeset
-  end
-
   def new(conn, _params) do
     changeset = User.changeset(%User{})
     render(conn, "new.html", changeset: changeset)

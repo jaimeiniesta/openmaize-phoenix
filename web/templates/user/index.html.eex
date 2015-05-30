@@ -1,6 +1,4 @@
-<h2>Hi, <%= String.capitalize @current_user[:name] %>, how's it hanging?</h2>
-
-<h3>Listing users</h3>
+<h2>Listing users</h2>
 
 <table class="table">
   <thead>
