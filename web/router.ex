@@ -6,7 +6,7 @@ defmodule Welcome.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-    plug Openmaize.Authenticate
+    plug Openmaize
   end
 
   pipeline :api do
