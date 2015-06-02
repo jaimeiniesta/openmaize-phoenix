@@ -9,12 +9,12 @@ users = [
   %{
     name: "dick",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
-    role: "normal"
+    role: "user"
   },
   %{
     name: "harry",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
-    role: "normal"
+    role: "user"
   }
 ]
 
