@@ -29,7 +29,7 @@ defmodule Welcome.Router do
     post "/login", AdminController, :login_user, as: :login
     get "/logout", AdminController, :logout, as: :logout
 
-    resources "/users", AdminController, only: [:new, :create]
+    resources "/users", AdminController, only: [:new, :create, :delete]
   end
 
 end

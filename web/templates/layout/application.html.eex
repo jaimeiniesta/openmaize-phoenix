@@ -23,6 +23,7 @@
           <%= if @current_user == nil do %>
           <li><a href="<%= login_path @conn, :login %>">Login</a></li>
           <%= else %>
+          <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= @current_user[:name] %></a></li>
           <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
           <%= end %>
         </ul>

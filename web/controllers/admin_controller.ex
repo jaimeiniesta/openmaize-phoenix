@@ -4,20 +4,20 @@ defmodule Welcome.AdminController do
   alias Welcome.User
   alias Openmaize.Signup
 
+  plug :scrub_params, "user" when action in [:create]
   plug :action
 
   def index(conn, _params) do
-    render conn, "index.html"
+    users = Repo.all(User)
+    render(conn, "index.html", users: users)
   end
 
   def login(conn, _params) do
-    changeset = User.changeset(%User{})
-    render conn, "login.html", changeset: changeset
+    render conn, "login.html"
   end
 
   def new(conn, _params) do
-    changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render conn, "new.html"
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -31,7 +31,7 @@ defmodule Welcome.AdminController do
 
       conn
       |> put_flash(:info, "User created successfully.")
-      |> redirect(to: user_path(conn, :index))
+      |> redirect(to: admin_path(conn, :index))
     else
       render(conn, "new.html", changeset: changeset)
     end
@@ -40,6 +40,15 @@ defmodule Welcome.AdminController do
   def create_new(conn, {:error, message}) do
     conn
     |> put_flash(:error, message)
-    |> redirect(to: user_path(conn, :new))
+    |> redirect(to: admin_path(conn, :new))
+  end
+
+  def delete(conn, %{"id" => id}) do
+    user = Repo.get(User, id)
+    Repo.delete(user)
+
+    conn
+    |> put_flash(:info, "User deleted successfully.")
+    |> redirect(to: admin_path(conn, :index))
   end
 end

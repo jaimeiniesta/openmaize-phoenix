@@ -3,12 +3,11 @@ defmodule Welcome.UserController do
 
   alias Welcome.User
 
-  plug :scrub_params, "user" when action in [:create, :update]
+  plug :scrub_params, "user" when action in [:update]
   plug :action
 
   def index(conn, _params) do
-    users = Repo.all(User)
-    render(conn, "index.html", users: users)
+    render conn, "index.html"
   end
 
   def show(conn, %{"id" => id}) do
@@ -30,7 +29,7 @@ defmodule Welcome.UserController do
       Repo.update(changeset)
 
       conn
-      |> put_flash(:info, "User updated successfully.")
+      |> put_flash(:info, "User page updated successfully.")
       |> redirect(to: user_path(conn, :index))
     else
       render(conn, "edit.html", user: user, changeset: changeset)
