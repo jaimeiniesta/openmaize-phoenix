@@ -18,12 +18,18 @@ defmodule Welcome.Router do
 
     get "/", PageController, :index, as: :root
 
-    resources "/users", UserController
+    resources "/users", UserController, only: [:index, :show, :edit, :update]
+  end
 
-    get "/admin", AdminController, :index
-    get "/admin/login", AdminController, :login, as: :login
-    post "/admin/login", AdminController, :login_user, as: :login
-    get "/admin/logout", AdminController, :logout, as: :logout
+  scope "/admin", Welcome do
+    pipe_through :browser
+
+    get "/", AdminController, :index
+    get "/login", AdminController, :login, as: :login
+    post "/login", AdminController, :login_user, as: :login
+    get "/logout", AdminController, :logout, as: :logout
+
+    resources "/users", AdminController, only: [:new, :create]
   end
 
 end

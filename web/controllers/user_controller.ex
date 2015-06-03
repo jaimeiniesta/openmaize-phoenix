@@ -2,7 +2,6 @@ defmodule Welcome.UserController do
   use Welcome.Web, :controller
 
   alias Welcome.User
-  alias Openmaize.Signup
 
   plug :scrub_params, "user" when action in [:create, :update]
   plug :action
@@ -10,34 +9,6 @@ defmodule Welcome.UserController do
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)
-  end
-
-  def new(conn, _params) do
-    changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"user" => user_params}) do
-    create_new(conn, Signup.create_user(user_params))
-  end
-
-  def create_new(conn, {:ok, user_params}) do
-    changeset = User.changeset(%User{}, user_params)
-    if changeset.valid? do
-      Repo.insert(changeset)
-
-      conn
-      |> put_flash(:info, "User created successfully.")
-      |> redirect(to: user_path(conn, :index))
-    else
-      render(conn, "new.html", changeset: changeset)
-    end
-  end
-
-  def create_new(conn, {:error, message}) do
-    conn
-    |> put_flash(:error, message)
-    |> redirect(to: user_path(conn, :new))
   end
 
   def show(conn, %{"id" => id}) do
@@ -64,15 +35,6 @@ defmodule Welcome.UserController do
     else
       render(conn, "edit.html", user: user, changeset: changeset)
     end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    Repo.delete(user)
-
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
   end
 
 end
