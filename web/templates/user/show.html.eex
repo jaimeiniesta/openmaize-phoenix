@@ -8,10 +8,10 @@
   </li>
 
   <li>
-    <strong>Role:</strong>
-    <%= @user.role %>
+    <strong>Biography:</strong>
+    <%= @user.bio %>
   </li>
 
 </ul>
 
-<%= link "Back", to: user_path(@conn, :index) %>
+<%= link "Edit", to: user_path(@conn, :edit, @user) %>

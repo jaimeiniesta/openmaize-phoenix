@@ -5,12 +5,13 @@ defmodule Welcome.User do
     field :name, :string
     field :password_hash, :string
     field :role, :string
+    field :bio, :string
 
     timestamps
   end
 
   @required_fields ~w(name password_hash role)
-  @optional_fields ~w()
+  @optional_fields ~w(bio)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
