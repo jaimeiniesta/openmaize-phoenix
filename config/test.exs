@@ -25,7 +25,7 @@ config :openmaize,
   crypto: :bcrypt,
   login_dir: "admin",
   redirect_pages: %{"admin" => "/admin", "user" => "/users", nil => "/"},
-  protected: %{"/admin" => [], "/users" => ["user"]},
+  protected: %{"/admin" => [], "/users" => ["user"], "/users/:id" => ["user"]},
   storage_method: "cookie",
   secret_key: "you will never guess",
   token_validity: 600
