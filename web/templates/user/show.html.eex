@@ -9,9 +9,13 @@
 
   <li>
     <strong>Biography:</strong>
-    <%= @user.bio %>
+    <p><%= @user.bio %></p>
   </li>
 
 </ul>
 
+<%= if @current_user == @user do %>
 <%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<%= else %>
+<%= link "Back", to: user_path(@conn, :index) %>
+<%= end %>
