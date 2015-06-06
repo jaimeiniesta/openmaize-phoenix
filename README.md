@@ -1,6 +1,6 @@
-# Openmaize-example
+# Openmaize-phoenix
 
-An example of using Openmaize, an authentication library, in a Phoenix web
+An example of using Openmaize authentication library in a Phoenix web
 application.
 
 To see how Openmaize is called, see the `config/dev.exs` and `web/router.ex`
