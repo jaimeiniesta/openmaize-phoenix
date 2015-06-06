@@ -1,6 +1,8 @@
 defmodule Welcome.User do
   use Welcome.Web, :model
 
+  alias Welcome.Repo
+
   schema "users" do
     field :name, :string
     field :password_hash, :string
@@ -22,5 +24,6 @@ defmodule Welcome.User do
   def changeset(model, params \\ nil) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_unique(:name, on: Repo)
   end
 end
