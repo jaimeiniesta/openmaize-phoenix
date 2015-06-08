@@ -32,4 +32,10 @@ defmodule Welcome.Router do
     resources "/users", AdminController, only: [:new, :create, :delete]
   end
 
+  scope "/api", Welcome do
+    pipe_through :api
+
+    resources "/users", ContactController
+  end
+
 end
