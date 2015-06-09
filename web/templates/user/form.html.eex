@@ -10,10 +10,7 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <label>Name</label>
-    <%= text_input f, :name, class: "form-control" %>
-  </div>
+  <h3><%= @current_user[:name] %></h3>
 
   <div class="form-group">
     <label>About me</label>

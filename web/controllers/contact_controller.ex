@@ -6,7 +6,8 @@ defmodule Welcome.ContactController do
   plug :action
 
   def index(conn, _params) do
-    users = Repo.all(User) |> Enum.map(&Map.take(&1, [:id, :name, :role]))
+    users = Repo.all(User)
+            |> Enum.map(&Map.take(&1, [:id, :name, :email, :role, :bio]))
     render conn, users: users
   end
 

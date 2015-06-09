@@ -6,6 +6,7 @@ defmodule Welcome.Repo.Migrations.CreateUser do
       add :name, :string
       add :password_hash, :string
       add :role, :string
+      add :email, :string
       add :bio, :string
 
       timestamps

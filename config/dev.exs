@@ -43,4 +43,5 @@ config :openmaize,
   protected: %{"/admin" => [], "/users" => ["user"], "/users/:id" => ["user"]},
   storage_method: :cookie,
   secret_key: "you will never guess",
+  token_info: [:email],
   token_validity: 600
