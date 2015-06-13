@@ -11,6 +11,7 @@ defmodule Welcome.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Openmaize, redirects: false
   end
 
   scope "/", Welcome do
@@ -35,6 +36,7 @@ defmodule Welcome.Router do
   scope "/api", Welcome do
     pipe_through :api
 
+    post "/login", ContactController, :login
     resources "/users", ContactController
   end
 
