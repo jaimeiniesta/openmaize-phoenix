@@ -5,4 +5,12 @@ defmodule Welcome.ContactView do
     users
   end
 
+  def render("show.json", %{user: user}) do
+    user
+  end
+
+  def render(_conn, %{response: response}) do
+    response
+  end
+
 end

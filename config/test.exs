@@ -28,7 +28,7 @@ config :openmaize,
   protected: %{"/admin" => ["admin"],
     "/users" => ["admin", "user"],
     "/users/:id" => ["user"],
-    "/api/users" => ["admin", "user"]
+    "/api/users" => ["admin"]
   },
   storage_method: :cookie,
   secret_key: "you will never guess",
