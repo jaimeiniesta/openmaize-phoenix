@@ -1,12 +1,13 @@
 defmodule Welcome.Router do
   use Welcome.Web, :router
+  import Openmaize.IdCheck
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-    plug Openmaize
+    plug Openmaize, check: &id_noedit/4
   end
 
   pipeline :api do
