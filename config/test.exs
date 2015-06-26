@@ -30,6 +30,5 @@ config :openmaize,
     "/users/:id" => ["user"],
     "/api/users" => ["admin"]
   },
-  storage_method: :cookie,
   secret_key: "you will never guess",
   token_validity: 600

@@ -4,9 +4,9 @@ defmodule Welcome.Repo.Migrations.CreateUser do
   def change do
     create table(:users) do
       add :name, :string
+      add :email, :string
       add :password_hash, :string
       add :role, :string
-      add :email, :string
       add :bio, :string
 
       timestamps

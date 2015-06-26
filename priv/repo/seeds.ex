@@ -3,27 +3,27 @@
 users = [
   %{
     name: "tom",
+    email: "tom@mail.com",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "admin",
-    email: "tom@mail.com",
     bio: "I was born in..."
   },
   %{
     name: "dick",
+    email: "dick@mail.com",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
-    email: "dick@mail.com",
     bio: "I was born in..."
   },
   %{
     name: "harry",
+    email: "harry@mail.com",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
-    email: "harry@mail.com",
     bio: "I was born in..."
   }
 ]
 
 for user <- users do
-  Map.merge(%Welcome.User{}, user) |> Welcome.Repo.insert
+  Map.merge(%Welcome.User{}, user) |> Welcome.Repo.insert!
 end

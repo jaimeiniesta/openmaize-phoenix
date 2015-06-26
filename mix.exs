@@ -30,11 +30,11 @@ defmodule Welcome.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, "~> 0.13"},
-     {:phoenix_ecto, "~> 0.4"},
+     {:phoenix_ecto, "~> 0.5"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_live_reload, "~> 0.4"},
      {:phoenix_html, "~> 1.0"},
      {:cowboy, "~> 1.0"},
-     {:openmaize, "~> 0.4"}]
+     {:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
   end
 end
