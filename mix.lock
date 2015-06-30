@@ -5,7 +5,7 @@
   "ecto": {:hex, :ecto, "0.12.0"},
   "fs": {:hex, :fs, "0.9.2"},
   "joken": {:hex, :joken, "0.14.1"},
-  "openmaize": {:git, "https://github.com/elixircnx/openmaize.git", "adb826fc5516498cbb2b058b7aedd6f47270a5ee", []},
+  "openmaize": {:git, "https://github.com/elixircnx/openmaize.git", "f7f8f20c2376109e95568e8bae2d3f32d0728d63", [branch: "develop"]},
   "phoenix": {:hex, :phoenix, "0.13.1"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "0.5.0"},
   "phoenix_html": {:hex, :phoenix_html, "1.2.1"},

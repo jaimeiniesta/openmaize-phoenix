@@ -1,6 +1,5 @@
 defmodule Welcome.Router do
   use Welcome.Web, :router
-  import Openmaize.IdCheck
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -12,7 +11,9 @@ defmodule Welcome.Router do
   end
 
   pipeline :authorize do
-    plug Openmaize.Authorize, check: &id_noedit/4
+    plug Openmaize.Authorize
+    plug Openmaize.IdCheck
+    #plug Openmaize.IdCheck, show: true
   end
 
   pipeline :api do
@@ -20,6 +21,7 @@ defmodule Welcome.Router do
     plug Openmaize.LoginoutCheck
     plug Openmaize.Authenticate
     plug Openmaize.Authorize, redirects: false
+    plug Openmaize.IdCheck
   end
 
   scope "/", Welcome do

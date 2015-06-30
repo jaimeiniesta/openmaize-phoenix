@@ -35,6 +35,6 @@ defmodule Welcome.Mixfile do
      {:phoenix_live_reload, "~> 0.4"},
      {:phoenix_html, "~> 1.0"},
      {:cowboy, "~> 1.0"},
-     {:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
+     {:openmaize, git: "https://github.com/elixircnx/openmaize.git", branch: "develop"}]
   end
 end
