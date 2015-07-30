@@ -4,7 +4,6 @@ defmodule Welcome.UserController do
   alias Welcome.User
 
   plug :scrub_params, "user" when action in [:update]
-  plug :action
 
   def index(conn, _params) do
     render conn, "index.html"

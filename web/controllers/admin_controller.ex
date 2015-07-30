@@ -5,7 +5,6 @@ defmodule Welcome.AdminController do
   alias Openmaize.Signup
 
   plug :scrub_params, "user" when action in [:create]
-  plug :action
 
   def index(conn, _params) do
     users = Repo.all(User)

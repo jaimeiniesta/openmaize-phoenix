@@ -3,7 +3,7 @@ defmodule Welcome.Mixfile do
 
   def project do
     [app: :welcome,
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
@@ -29,12 +29,13 @@ defmodule Welcome.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.13"},
-     {:phoenix_ecto, "~> 0.5"},
+    [{:phoenix, "~> 0.15"},
+     {:phoenix_html, "~> 1.4"},
+     {:phoenix_live_reload, "~> 0.5", only: :dev},
+     {:phoenix_ecto, "~> 0.8"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_live_reload, "~> 0.4"},
-     {:phoenix_html, "~> 1.0"},
      {:cowboy, "~> 1.0"},
-     {:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
+     #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
+     {:openmaize, "~> 0.6"}]
   end
 end

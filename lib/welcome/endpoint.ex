@@ -31,5 +31,5 @@ defmodule Welcome.Endpoint do
     key: "_welcome_key",
     signing_salt: "xTh+BjZV"
 
-  plug :router, Welcome.Router
+  plug Welcome.Router
 end
