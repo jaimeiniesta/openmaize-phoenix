@@ -11,17 +11,15 @@ defmodule Welcome.Router do
   end
 
   pipeline :authorize do
-    plug Openmaize.Authorize
-    plug Openmaize.IdCheck
-    #plug Openmaize.IdCheck, show: true
+    plug Openmaize.Authorize.IdCheck
+    #plug Openmaize.Authorize.IdCheck, show: true
   end
 
   pipeline :api do
     plug :accepts, ["json"]
     plug Openmaize.LoginoutCheck
     plug Openmaize.Authenticate
-    plug Openmaize.Authorize, redirects: false
-    plug Openmaize.IdCheck
+    plug Openmaize.Authorize.IdCheck, redirects: false
   end
 
   scope "/", Welcome do
