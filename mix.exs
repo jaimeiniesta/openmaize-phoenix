@@ -3,7 +3,7 @@ defmodule Welcome.Mixfile do
 
   def project do
     [app: :welcome,
-     version: "0.0.2",
+     version: "0.1.0",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
@@ -17,8 +17,7 @@ defmodule Welcome.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Welcome, []},
-     applications: [:phoenix, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+     applications: [:phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :openmaize]]
   end
 
   # Specifies which paths to compile per environment
@@ -30,12 +29,12 @@ defmodule Welcome.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, "~> 1.0"},
-     {:phoenix_ecto, "~> 0.9"},
+     {:phoenix_ecto, "~> 1.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.2"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
-     {:openmaize, "~> 0.7"}]
+     {:openmaize, "~> 0.8"}]
   end
 end

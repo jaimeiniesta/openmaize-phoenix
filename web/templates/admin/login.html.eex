@@ -1,6 +1,6 @@
 <h2>Login</h2>
 
-<%= form_for @conn, login_path(@conn, :login_user), [name: :user], fn f -> %>
+<%= form_for @conn, login_path(@conn, :login_user), [as: :user], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below:</p>

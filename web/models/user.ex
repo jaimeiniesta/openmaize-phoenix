@@ -25,6 +25,6 @@ defmodule Welcome.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_unique(:name, on: Repo)
+    |> unique_constraint(:name, on: Repo)
   end
 end

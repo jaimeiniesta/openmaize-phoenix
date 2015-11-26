@@ -13,7 +13,7 @@ config :logger, level: :warn
 config :welcome, Welcome.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: System.get_env("POSTGRES_PASS"),
   database: "welcome_test",
   size: 1,
   max_overflow: 0
@@ -22,13 +22,10 @@ config :welcome, Welcome.Repo,
 config :openmaize,
   user_model: Welcome.User,
   repo: Welcome.Repo,
-  crypto: :bcrypt,
   login_dir: "/admin",
   redirect_pages: %{"admin" => "/admin", "user" => "/users", nil => "/"},
   protected: %{"/admin" => ["admin"],
     "/users" => ["admin", "user"],
     "/users/:id" => ["user"],
     "/api/users" => ["admin"]
-  },
-  secret_key: "you will never guess",
-  token_validity: 600
+  }
