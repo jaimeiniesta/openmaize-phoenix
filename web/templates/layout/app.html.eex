@@ -28,7 +28,9 @@
           <%= end %>
         </ul>
       </nav>
+    </div>
 
+    <div class="container">
       <p class="alert alert-info"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger"><%= get_flash(@conn, :error) %></p>
 
