@@ -3,12 +3,13 @@ defmodule Welcome.Mixfile do
 
   def project do
     [app: :welcome,
-     version: "0.1.0",
+     version: "0.2.0",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     aliases: aliases,
      deps: deps]
   end
 
@@ -36,5 +37,16 @@ defmodule Welcome.Mixfile do
      {:cowboy, "~> 1.0"},
      #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
      {:openmaize, "~> 0.8"}]
+  end
+
+  # Aliases are shortcut or tasks specific to the current project.
+  # For example, to create, migrate and run the seeds file at once:
+  #
+  #     $ mix ecto.setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+     "ecto.reset": ["ecto.drop", "ecto.setup"]]
   end
 end

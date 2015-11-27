@@ -13,8 +13,11 @@ use Mix.Config
 # which you typically run after static files are built.
 config :welcome, Welcome.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com"],
+  url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
+
+# Do not print debug messages in production
+config :logger, level: :info
 
 # ## SSL Support
 #
@@ -29,9 +32,6 @@ config :welcome, Welcome.Endpoint,
 #
 # Where those two env variables point to a file on
 # disk for the key and cert.
-
-# Do not print debug messages in production
-config :logger, level: :info
 
 # ## Using releases
 #

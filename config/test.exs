@@ -15,8 +15,8 @@ config :welcome, Welcome.Repo,
   username: "postgres",
   password: System.get_env("POSTGRES_PASS"),
   database: "welcome_test",
-  size: 1,
-  max_overflow: 0
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
 
 # Openmaize authentication library configuration
 config :openmaize,
