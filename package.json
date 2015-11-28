@@ -1,12 +1,14 @@
 {
-  "repository": {
-  },
+  "repository": {},
   "dependencies": {
-    "brunch": "^1.8.5",
     "babel-brunch": "^5.1.1",
+    "brunch": "^1.8.5",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "css-brunch": ">= 1.0 < 1.8",
     "javascript-brunch": ">= 1.0 < 1.8",
+    "jeet": "^6.1.2",
+    "rupture": "^0.6.1",
+    "stylus-brunch": "^1.8.1",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   },
   "license": "MIT"

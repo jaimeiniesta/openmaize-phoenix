@@ -1,6 +1,6 @@
-<div class="jumbotron">
+<div>
   <h2>Welcome to <a href="https://github.com/elixircnx/openmaize">Openmaize</a></h2>
-  <p class="lead">But first, a cautionary tale against forgetting your password</p>
+  <p>But first, a cautionary tale against forgetting your password</p>
   <p>...Ali Baba told his brother, Cassim, about the treasure in a cave and that
   he just needed to say "Open Sesame" at the entrance to get in. This he did, but
   once he was inside, the door to the cave suddenly shut, and Cassim realized that

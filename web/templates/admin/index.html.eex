@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="hero">
   <h2>Hi, <%= @current_user[:name] %>, how's it hanging?</h2>
 </div>
 

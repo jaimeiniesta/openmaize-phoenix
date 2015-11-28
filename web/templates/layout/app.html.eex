@@ -12,31 +12,35 @@
   </head>
 
   <body>
-    <div class="container">
-      <nav class="navbar navbar-default" role="navigation">
-        <ul class="nav navbar-nav">
+    <div class="hero">
+      <img src="/images/header_img.jpg">
+      <div class="hero-inner">
+        <h1>Openmaize</h1>
+      </div>
+    </div>
+    <div id="root">
+      <div class="sidebar">
+        <ul>
           <li><a href="<%= root_path @conn, :index %>">Home</a></li>
           <li><a href="<%= user_path @conn, :index %>">Users</a></li>
           <li><a href="<%= admin_path @conn, :index %>">Admin</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
           <%= if @current_user == nil do %>
-          <li><a href="<%= login_path @conn, :login %>">Login</a></li>
+            <li><a href="<%= login_path @conn, :login %>">Login</a></li>
           <%= else %>
-          <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= @current_user[:name] %></a></li>
-          <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
+            <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= @current_user[:name] %></a></li>
+            <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
           <%= end %>
         </ul>
-      </nav>
-    </div>
+      </div>
 
-    <div class="container">
-      <p class="alert alert-info"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger"><%= get_flash(@conn, :error) %></p>
+      <div class="main">
+        <p class=""><%= get_flash(@conn, :info) %></p>
+        <p class=""><%= get_flash(@conn, :error) %></p>
 
-      <%= @inner %>
+        <%= @inner %>
 
-    </div> <!-- /container -->
+      </div>
+    </div> <!-- root -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>
   </body>
