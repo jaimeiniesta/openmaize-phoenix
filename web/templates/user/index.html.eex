@@ -1,3 +1,1 @@
-<div class="hero">
-  <h2>Hi, <%= String.capitalize @current_user[:name] %>, how's it hanging?</h2>
-</div>
+<h2>Hi, <%= String.capitalize @current_user[:name] %>, how's it hanging?</h2>

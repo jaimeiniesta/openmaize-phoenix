@@ -1,6 +1,4 @@
-<div class="hero">
-  <h2>Hi, <%= @current_user[:name] %>, how's it hanging?</h2>
-</div>
+<h2>Hi, <%= @current_user[:name] %>, how's it hanging?</h2>
 
 <h2>Listing users</h2>
 
