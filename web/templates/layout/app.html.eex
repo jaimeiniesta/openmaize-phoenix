@@ -13,13 +13,13 @@
 
   <body>
     <div class="hero">
-      <img src="/images/header_img.jpg">
       <div class="hero-inner">
         <h1>Openmaize</h1>
+        <h2>Authentication and authorization library for Elixir</h2>
       </div>
     </div>
     <div id="root">
-      <div class="sidebar">
+      <div class="aside">
         <ul>
           <li><a href="<%= root_path @conn, :index %>">Home</a></li>
           <li><a href="<%= user_path @conn, :index %>">Users</a></li>
@@ -33,7 +33,7 @@
         </ul>
       </div>
 
-      <div class="main">
+      <div class="article">
         <p class=""><%= get_flash(@conn, :info) %></p>
         <p class=""><%= get_flash(@conn, :error) %></p>
 

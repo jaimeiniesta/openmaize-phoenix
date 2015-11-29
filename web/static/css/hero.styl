@@ -3,13 +3,12 @@
 
 .hero
   position relative
-  height 350px
   overflow hidden
-
-.hero
-  img
-    span(1/1)
-    height 350px
+  margin-bottom 40px
+  background linear-gradient(top, gray, #4863a0)
+  height 350px
+  +desktop()
+    height 450px
 
 .hero-inner
   color #e8e8e8
@@ -17,3 +16,5 @@
   margin 80px
   font-style oblique
   font-weight bold
+  +mobile()
+    margin 40px
