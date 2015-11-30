@@ -1,20 +1,21 @@
 @require 'nib'
 @require 'jeet'
+@require 'vars'
 
 .hero
-  position relative
-  overflow hidden
-  margin-bottom 40px
-  background linear-gradient(top, gray, #4863a0)
-  height 350px
+  position: relative
+  overflow: hidden
+  margin-bottom: 40px
+  background: linear-gradient(top, gray, #4863a0)
+  height: 350px
   +desktop()
-    height 450px
+    height: 450px
 
 .hero-inner
-  color #e8e8e8
-  position absolute
-  margin 80px
-  font-style oblique
-  font-weight bold
+  color: $offwhite
+  position: absolute
+  margin: 80px
+  font-style: oblique
+  font-weight: bold
   +mobile()
-    margin 40px
+    margin: 40px

@@ -1,0 +1,55 @@
+$default-color = #0074d9
+
+-parse($size)
+  if $size == "small"
+    return 10
+  else if $size == "medium"
+    return 14
+  else if $size == "large"
+    return 18
+  else
+    return $size
+
+glossy-button($color = $default-color, $size = "medium", $text-color = null, $shadow-color = null, $hover-color = null)
+  if $text-color
+    $dark-text = light($text-color) ? true : false
+  else
+    $dark-text = light(darken($color, 22%)) ? false : true
+    $text-color = $dark-text ? white : rgba(#000, .7)
+
+  $shadow-color = $dark-text ? rgba(#000,.1) : rgba(#fff,.3) unless $shadow-color
+  $hover-color = $dark-text ? rgba(#000,.2) : rgba(#fff,.5) unless $hover-color
+  $down-shadow = $dark-text ? 0 -1px 1px rgba(#000,.2) : 1px 1px 1px rgba(#fff,.6)
+
+  $parsed-size = -parse($size)
+
+  $height = round(($parsed-size*1.53px)/2)
+  $width = round((($parsed-size*1.53px)*2.2)/2)
+
+  font-size: unit($parsed-size, 'px')
+  padding: unit($height, 'px') unit($width, 'px')
+  border-radius: round($parsed-size/4.33333px)
+  background-color: $color
+  text-shadow: 1px 1px 1px $shadow-color
+  border: s('1px solid %s', darken($color, 10%))
+  color: $text-color
+
+  box-shadow: inset 0 1px 0 rgba(#fff,$strength)
+  cursor: pointer
+  font-weight: bold
+  font-family: $font-stack
+  line-height: 1em
+  text-align: center
+  text-decoration: none
+  display: inline-block
+  no-select()
+
+  &:hover, &:focus
+    background-position: 0 unit($height * -1, 'px')
+    color: darken($text-color, 3%)
+    text-shadow: 1px 1px 1px $hover-color
+
+  &:active
+    box-shadow: s("inset 0 1px %s %s", $parsed-size/2.6px, rgba(darken($color, 25%),.6))
+    text-shadow: $down-shadow
+    border-color: darken($color, 18%)

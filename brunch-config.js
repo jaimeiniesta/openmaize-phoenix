@@ -56,7 +56,7 @@ exports.config = {
       ignore: [/web\/static\/vendor/]
     },
     stylus: {
-      plugins: ['rupture', 'jeet', 'axis']
+      plugins: ['rupture', 'jeet']
     }
   },
 
