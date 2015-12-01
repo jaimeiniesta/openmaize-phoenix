@@ -12,12 +12,12 @@
 
   <h3><%= @current_user[:name] %></h3>
 
-  <div class="form">
+  <div class="form-group">
     <label>About me</label>
-    <%= textarea f, :bio %>
+    <%= textarea f, :bio, class: "form-control" %>
   </div>
 
-  <div class="form">
+  <div class="form-group">
     <%= submit "Submit", class: "btn" %>
   </div>
 <% end %>

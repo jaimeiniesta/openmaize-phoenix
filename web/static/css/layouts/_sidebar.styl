@@ -1,9 +1,6 @@
-@require 'nib'
-@require 'jeet'
-@require 'rupture'
-
 #root
   center()
+  margin-bottom: 40px
   +desktop()
     center(pad: 60px)
   .aside
@@ -13,6 +10,7 @@
       li
         display: block
         margin: 0 0 10px 0
+        font-size: 18px
     +below(767px)
       stack()
       ul

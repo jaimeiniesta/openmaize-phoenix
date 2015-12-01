@@ -1,6 +1,9 @@
-@require 'buttons'
-@require 'utils'
-@require 'vars'
+@require 'nib'
+@require 'jeet'
+@require 'rupture'
+@require '_variables'
+@require './components/*'
+@require './layouts/*'
 
 body
   background-color: $offwhite
@@ -17,4 +20,8 @@ a
 .btn
   glossy-button()
   click-shrink()
-  rounded(12px)
+.btn-danger
+  glossy-button(red, "small")
+
+.text-right
+  text-align: right

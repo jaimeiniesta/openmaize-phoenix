@@ -12,17 +12,17 @@
     </div>
   <% end %>
 
-  <div class="form">
+  <div class="form-group">
     <label>Name</label>
-    <%= text_input f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
   </div>
 
-  <div class="form">
+  <div class="form-group">
     <label>Password</label>
-    <%= password_input f, :password %>
+    <%= password_input f, :password, class: "form-control" %>
   </div>
 
-  <div class="form">
+  <div class="form-group">
     <%= submit "Submit", class: "btn" %>
   </div>
 <% end %>
