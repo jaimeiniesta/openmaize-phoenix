@@ -1,0 +1,10 @@
+link($color, $underline=false)
+  a
+    color: $color
+    text-decoration: none
+    &:hover
+      if $underline
+        text-decoration: underline
+      else
+        color: lighten(@color, 30%)
+
