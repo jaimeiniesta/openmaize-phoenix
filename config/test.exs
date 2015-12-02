@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :welcome, Welcome.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
+  username: "dev",
   password: System.get_env("POSTGRES_PASS"),
   database: "welcome_test",
   hostname: "localhost",
