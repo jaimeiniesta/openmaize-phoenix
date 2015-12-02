@@ -1,0 +1,22 @@
+#root
+  center()
+  margin-bottom: 40px
+  +desktop()
+    center(pad: 60px)
+  .aside
+    col(1/3)
+    listnone()
+    a
+      link($steelblue)
+    +below(767px)
+      stack()
+      ul
+        center()
+        li
+          display: inline
+          margin: 0 15px
+
+  .article
+    col(2/3)
+    +below(767px)
+      stack()

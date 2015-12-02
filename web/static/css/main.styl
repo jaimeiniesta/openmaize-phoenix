@@ -1,0 +1,25 @@
+@require 'nib'
+@require 'jeet'
+@require 'rupture'
+@require '_variables'
+@require './components/*'
+@require './layouts/*'
+
+body
+  background-color: $offwhite
+  margin-bottom: 60px
+
+a
+  link($steelblue)
+
+.container
+  padding: 0 20px
+
+.btn
+  glossy-button()
+  click-shrink()
+.btn-danger
+  glossy-button(red, "small")
+
+.text-right
+  text-align: right

@@ -1,10 +1,8 @@
-<div class="jumbotron">
-  <h2>Hi, <%= @current_user[:name] %>, how's it hanging?</h2>
-</div>
+<h2>Hi, <%= @current_user[:name] %>, how's it hanging?</h2>
 
 <h2>Listing users</h2>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -20,7 +18,7 @@
       <td><%= user.role %></td>
 
       <td class="text-right">
-        <%= link "Delete", to: admin_path(@conn, :delete, user), method: :delete, class: "btn btn-danger btn-xs" %>
+        <%= link "Delete", to: admin_path(@conn, :delete, user), method: :delete, class: "btn btn-danger" %>
       </td>
     </tr>
 <% end %>
