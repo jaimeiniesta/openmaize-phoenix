@@ -35,8 +35,10 @@ being used (some of these are commented out in this example):
 Follow these instructions to install this Phoenix app:
 
 Edit the `config/dev.exs` and `priv/repo/seeds.exs` files before setting up the database
-Run `mix ecto.setup`
-Run `npm install`
+and then run the following commands:
+
+    mix ecto.setup
+    npm install
 
 This app uses Stylus as a css preprocessor. If you don't want to use Stylus, remove
 `stylus-brunch`, `jeet` and `rupture` from the package.json file before running
