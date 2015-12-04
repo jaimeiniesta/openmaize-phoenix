@@ -51,25 +51,18 @@
             <a href="http://hexdocs.pm/openmaize">Openmaize docs</a>
           </li>
           <li>
-            <a href="https://github.com/elixircnx/openmaize">Openmaize source</a>
-          </li>
-        </ul>
-      </div>
-      <div class="mid-col">
-        <ul>
-          <li>
             <a href="http://phoenixframework.org/docs/overview">Phoenix guides</a>
           </li>
           <li>
             <a href="http://hexdocs.pm/phoenix">Phoenix docs</a>
           </li>
-          <li>
-            <a href="https://github.com/phoenixframework/phoenix">Phoenix source</a>
-          </li>
         </ul>
       </div>
       <div class="right-col">
         <ul>
+          <li>
+            <a href="http://elixir-lang.org">Elixir language</a>
+          </li>
           <li>
             <a href="http://groups.google.com/group/elixir-lang-talk">Elixir mailing list</a>
           </li>
