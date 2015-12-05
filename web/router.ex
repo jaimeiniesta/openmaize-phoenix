@@ -28,7 +28,7 @@ defmodule Welcome.Router do
   scope "/", Welcome do
     pipe_through :browser
 
-    get "/", PageController, :index, as: :root
+    get "/", PageController, :index
   end
 
   scope "/users", Welcome do

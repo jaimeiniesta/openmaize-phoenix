@@ -1,7 +1,10 @@
 footer
   height: 150px
   padding: 40px
-  color: $offwhite
+  +mobile()
+    height: 200px
+    padding: 10px
+  color: $background
   background: linear-gradient(top, $steelblue, gray)
   .left-col
     col(1/2)
@@ -13,3 +16,6 @@ footer
     listnone()
     a
       link(@color, true)
+
+.push
+  height: 150px
