@@ -8,14 +8,11 @@ defmodule Welcome.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Openmaize.LoginoutCheck
-    #plug Openmaize.LoginoutCheck, token_validity: 10
     plug Openmaize.Authenticate
   end
 
   pipeline :authorize do
-    #plug Openmaize.Authorize
     plug Openmaize.Authorize.IdCheck
-    #plug Openmaize.Authorize.IdCheck, show: true
   end
 
   pipeline :api do
