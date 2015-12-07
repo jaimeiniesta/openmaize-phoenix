@@ -1,21 +1,20 @@
 footer
-  height: 150px
-  padding: 40px
+  height: 200px
+  section-center(false)
   +mobile()
-    height: 200px
-    padding: 10px
-  color: $background
-  background: linear-gradient(top, $steelblue, gray)
-  .left-col
+    height: 350px
+  color: $lightbg
+  background: linear-gradient(top, gray, $steelblue)
+  border-top: 1px solid darken($steelblue, 10%)
+  box-shadow: 0px 1px 0px #fff
+  .footer-col
     col(1/2)
-    listnone()
-    a
-      link(@color, true)
-  .right-col
-    col(1/2)
-    listnone()
-    a
-      link(@color, true)
+    +mobile()
+      stack()
+    ul
+      linklist()
 
 .push
-  height: 150px
+  height: 200px
+  +mobile()
+    height: 350px

@@ -13,6 +13,22 @@
 
   <body>
     <div class="wrapper">
+      <div class="header">
+        <nav>
+          <ul>
+            <li><a href="<%= page_path @conn, :index %>">Home</a></li>
+            <li><a href="<%= user_path @conn, :index %>">Users</a></li>
+            <li><a href="<%= admin_path @conn, :index %>">Admin</a></li>
+            <%= if @current_user == nil do %>
+              <li><a href="<%= login_path @conn, :login %>">Login</a></li>
+              <%= else %>
+              <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= @current_user[:name] %></a></li>
+              <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
+              <%= end %>
+          </ul>
+        </nav>
+      </div>
+
       <div class="hero">
         <div class="hero-inner">
           <h1>Openmaize</h1>
@@ -23,57 +39,19 @@
       <div class="container">
         <p class="alert alert-info"><%= get_flash(@conn, :info) %></p>
         <p class="alert alert-error"><%= get_flash(@conn, :error) %></p>
+      </div>
 
-        <div id="root">
-          <div class="aside">
-            <ul>
-              <li><a href="<%= page_path @conn, :index %>">Home</a></li>
-              <li><a href="<%= user_path @conn, :index %>">Users</a></li>
-              <li><a href="<%= admin_path @conn, :index %>">Admin</a></li>
-                <%= if @current_user == nil do %>
-                <li><a href="<%= login_path @conn, :login %>">Login</a></li>
-                <%= else %>
-                <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= @current_user[:name] %></a></li>
-                <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
-                <%= end %>
-            </ul>
-          </div>
-
-          <div class="article">
-            <%= @inner %>
-          </div>
-        </div>
+      <div class="section">
+        <%= @inner %>
       </div>
       <div class="push"></div>
     </div>
+    </div>
+    <div class="push"></div>
+    </div>
 
     <footer>
-      <div class="left-col">
-        <ul>
-          <li>
-            <a href="http://hexdocs.pm/openmaize">Openmaize docs</a>
-          </li>
-          <li>
-            <a href="http://phoenixframework.org/docs/overview">Phoenix guides</a>
-          </li>
-          <li>
-            <a href="http://hexdocs.pm/phoenix">Phoenix docs</a>
-          </li>
-        </ul>
-      </div>
-      <div class="right-col">
-        <ul>
-          <li>
-            <a href="http://elixir-lang.org">Elixir language</a>
-          </li>
-          <li>
-            <a href="http://groups.google.com/group/elixir-lang-talk">Elixir mailing list</a>
-          </li>
-          <li>
-            <a href="http://groups.google.com/group/phoenix-talk">Phoenix mailing list</a>
-          </li>
-        </ul>
-      </div>
+      <%= render Welcome.LayoutView, "footer.html" %>
     </footer>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

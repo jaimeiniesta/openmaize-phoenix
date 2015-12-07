@@ -1,0 +1,14 @@
+.header
+  responsive-center()
+  width: 100%
+  color: $lightbg
+  background: linear-gradient(top, $darkbg, #585858)
+  nav
+    +mobile()
+      center()
+    ul
+      linklist($navigation: true)
+      text-align: right
+      +mobile()
+        center()
+        text-align: center

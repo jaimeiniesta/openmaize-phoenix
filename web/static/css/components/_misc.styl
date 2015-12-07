@@ -1,0 +1,39 @@
+link($color, $underline=false)
+  color: $color
+  text-decoration: none
+  &:hover
+    if $underline
+      text-decoration: underline
+    else
+      color: lighten(@color, 30%)
+
+linklist($color=$lightbg, $navigation=false)
+  list-style: none
+  li
+    if $navigation
+      display: inline-block
+    else
+      display: block
+    margin: 10px 0
+    padding: 0 20px
+    font-size: 18px
+    a
+      link($color, true)
+
+responsive-center()
+  center(max-width: none, pad: $mobile-padding-horizontal)
+  +tablet()
+    center(max-width: none, pad: $tablet-padding-horizontal)
+  +desktop()
+    center(max-width: none, pad: $desktop-padding-horizontal)
+
+section-center($margins=true)
+  responsive-center()
+  if $margins
+    margin-top: $margin-section-vertical
+    margin-bottom: $margin-section-vertical
+  padding-top: $padding-section-vertical
+  padding-bottom: $padding-section-vertical
+  +mobile()
+    padding-top: $padding-section-vertical-mob
+    padding-bottom: $padding-section-vertical-mob

@@ -10,11 +10,19 @@ body
   height: 100%
 
 body
-  background-color: $background
+  background-color: $lightbg
+
+h1
+  text-align: center
 
 .wrapper
   min-height: 100%
-  margin 0 auto -150px
+  margin 0 auto -200px
+  +mobile()
+    margin 0 auto -350px
+
+.section
+  section-center()
 
 a
   link($steelblue)
