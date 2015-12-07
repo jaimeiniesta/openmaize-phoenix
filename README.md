@@ -1,7 +1,12 @@
 # Openmaize-phoenix
 
-An example of using Openmaize authentication library in a Phoenix web
+Examples of using Openmaize authentication / authorization library in a Phoenix web
 application.
+
+This repository consists of two examples of using Openmaize in a Phoenix web app.
+On the `master` branch, there is an example designed to show users some of the
+possibilities of Openmaize, and on the `simple_admin` branch, there is a very
+basic example of just authenticating users who access the `admin` page.
 
 ## Openmaize
 
