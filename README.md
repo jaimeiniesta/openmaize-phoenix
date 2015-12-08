@@ -3,24 +3,35 @@
 Examples of using Openmaize authentication / authorization library in a Phoenix web
 application.
 
-This repository consists of two examples of using Openmaize in a Phoenix web app.
-On the `master` branch, there is an example designed to show users some of the
-possibilities of Openmaize, and on the `simple_admin` branch, there is a very
-basic example of just authenticating users who access the `admin` page.
+There are two examples in this repository:
+
+* A multiple roles example -- on the `master` branch
+  * there are multiple users and one admin
+  * authentication is performed for every page
+    * even unprotected pages authenticate the user
+  * authorization is based on roles and the user id
+* A simple admin example -- on the `simple_admin` branch
+  * there is just one admin
+  * authentication is only performed for the admin page
+    * unprotected pages do not check who the current user is
 
 ## Openmaize
 
 If you want to use this repository as an example of how to use Openmaize,
-the most important files to look at are the `config/dev.exs` and `web/router.ex`
-files.
+the most important files to look at are:
 
-In addition, see the `web/controllers/admin_controller.ex` file
-and the login and login_form templates to see how the login GET request
-is handled. It is not necessary to write any logic for the login POST request
-and the logout request as those are handled by Openmaize.
+* config/dev.exs
+  * configuring Openmaize
+* web/router.ex
+  * calling the Openmaize plugs
+* web/controllers/admin_controller.ex
+  * how the login GET request is handled
+  * no logic is needed to handle the login POST request and the logout request
+    * these are handled by the Openmaize.LoginoutCheck plug.
+* web/templates/admin/login.html.eex
+  * a login form
 
-In the `web/router.ex` file, you will see the following four Openmaize plugs
-being used (some of these are commented out in this example):
+In the `web/router.ex` file, you will see the following Openmaize plugs:
 
 * Openmaize.LoginoutCheck
   * check to see if path is for the login or logout page
@@ -29,10 +40,10 @@ being used (some of these are commented out in this example):
   * authenticate the user using JSON Web Tokens (JWTs)
   * set the `current_user` variable with the information stored in the token
   * if there is no user, `current_user` will be set to nil
-* Openmaize.Authorize
+* Openmaize.Authorize -- used on the `simple_admin` branch
   * check to see if the user is authorized to access the resource / url
   * this check is based on the user's role
-* Openmaize.Authorize.IdCheck
+* Openmaize.Authorize.IdCheck -- used on the `master` branch
   * perform the Authorize check and then check that the id matches the current user id
 
 ## Installation
