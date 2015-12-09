@@ -1,4 +1,5 @@
-# mix run priv/repo/seeds.ex
+# In this example, there are several values for each user.
+# The required values are `name`, `password_hash` and `role`.
 
 users = [
   %{
