@@ -1,20 +1,16 @@
 defmodule Welcome.User do
   use Welcome.Web, :model
 
-  alias Welcome.Repo
-
   schema "users" do
     field :name, :string
-    field :email, :string
-    field :password_hash, :string
     field :role, :string
+    field :password, :string, virtual: true
+    field :password_hash, :string
+    field :email, :string
     field :bio, :string
 
     timestamps
   end
-
-  @required_fields ~w(name email password_hash role)
-  @optional_fields ~w(bio)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -24,7 +20,25 @@ defmodule Welcome.User do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> unique_constraint(:name, on: Repo)
+    |> cast(params, ~w(name role), ~w(email bio))
+    |> validate_length(:name, min: 1, max: 100)
+    |> unique_constraint(:name)
+  end
+
+  def auth_changeset(model, params) do
+    model
+    |> changeset(params)
+    |> cast(params, ~w(password), [])
+    |> validate_length(:password, min: 8, max: 80)
+    |> put_pass_hash()
+  end
+
+  defp put_pass_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
+      _ ->
+        changeset
+    end
   end
 end

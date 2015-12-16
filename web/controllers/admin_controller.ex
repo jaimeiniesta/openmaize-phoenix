@@ -1,10 +1,13 @@
 defmodule Welcome.AdminController do
   use Welcome.Web, :controller
 
+  import Openmaize.AccessControl
   alias Welcome.User
-  alias Openmaize.Signup
 
   plug :scrub_params, "user" when action in [:create]
+
+  # only users with the admin role can access resources in this module
+  plug :authorize, roles: ["admin"]
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -20,26 +23,16 @@ defmodule Welcome.AdminController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    create_new(conn, Signup.create_user(user_params))
-  end
+    changeset = User.auth_changeset(%User{}, user_params)
 
-  def create_new(conn, {:ok, user_params}) do
-    changeset = User.changeset(%User{}, user_params)
-    if changeset.valid? do
-      Repo.insert(changeset)
-
-      conn
-      |> put_flash(:info, "User created successfully.")
-      |> redirect(to: admin_path(conn, :index))
-    else
-      render(conn, "new.html", changeset: changeset)
+    case Repo.insert(changeset) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "User created successfully.")
+        |> redirect(to: admin_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def create_new(conn, {:error, message}) do
-    conn
-    |> put_flash(:error, message)
-    |> redirect(to: admin_path(conn, :new))
   end
 
   def delete(conn, %{"id" => id}) do

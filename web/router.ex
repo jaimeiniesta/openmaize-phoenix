@@ -11,17 +11,6 @@ defmodule Welcome.Router do
     plug Openmaize.Authenticate
   end
 
-  pipeline :authorize do
-    plug Openmaize.Authorize.IdCheck
-  end
-
-  pipeline :api do
-    plug :accepts, ["json"]
-    plug Openmaize.LoginoutCheck
-    plug Openmaize.Authenticate
-    plug Openmaize.Authorize.IdCheck, redirects: false
-  end
-
   scope "/", Welcome do
     pipe_through :browser
 
@@ -29,13 +18,13 @@ defmodule Welcome.Router do
   end
 
   scope "/users", Welcome do
-    pipe_through [:browser, :authorize]
+    pipe_through :browser
 
     resources "/", UserController, only: [:index, :show, :edit, :update]
   end
 
   scope "/admin", Welcome do
-    pipe_through [:browser, :authorize]
+    pipe_through :browser
 
     get "/", AdminController, :index
     get "/login", AdminController, :login, as: :login
@@ -43,13 +32,6 @@ defmodule Welcome.Router do
     get "/logout", AdminController, :logout, as: :logout
 
     resources "/users", AdminController, only: [:new, :create, :delete]
-  end
-
-  scope "/api", Welcome do
-    pipe_through :api
-
-    post "/login", ContactController, :login
-    resources "/users", ContactController
   end
 
 end
