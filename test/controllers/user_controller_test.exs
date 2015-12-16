@@ -1,63 +1,60 @@
 defmodule Welcome.UserControllerTest do
   use Welcome.ConnCase
 
+  import Openmaize.Token.Create
+  alias Welcome.Repo
   alias Welcome.User
-  @valid_params user: %{name: "some content", password_hash: "some content", role: "some content"}
-  @invalid_params user: %{}
+
+  @valid_attrs %{name: "Bill", password: "^hEsdg*F899", role: "user"}
+  @invalid_attrs %{name: "Albert", password: "password"}
+
+  {:ok, user_token} = %{id: 1, name: "Gladys", role: "user"} |> generate_token({0, 86400})
+  @user_token user_token
 
   setup do
     conn = conn()
+    |> put_req_cookie("access_token", @user_token)
     {:ok, conn: conn}
   end
 
-  test "GET /users", %{conn: conn} do
+  test "GET /users for authorized user", %{conn: conn} do
     conn = get conn, user_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing users"
+    assert html_response(conn, 200)
   end
 
-  test "GET /users/new", %{conn: conn} do
-    conn = get conn, user_path(conn, :new)
-    assert html_response(conn, 200) =~ "New user"
-  end
-
-  test "POST /users with valid data", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), @valid_params
-    assert redirected_to(conn) == user_path(conn, :index)
-  end
-
-  test "POST /users with invalid data", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), @invalid_params
-    assert html_response(conn, 200) =~ "New user"
+  test "GET /users redirect for unauthorized user" do
+    conn = conn() |> get(user_path(conn, :index))
+    assert redirected_to(conn) == login_path(conn, :login)
   end
 
   test "GET /users/:id", %{conn: conn} do
-    user = Repo.insert %User{}
+    user = Repo.get(User, 1)
     conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "Show user"
+    assert html_response(conn, 200)
   end
 
   test "GET /users/:id/edit", %{conn: conn} do
-    user = Repo.insert %User{}
+    user = Repo.get(User, 1)
     conn = get conn, user_path(conn, :edit, user)
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200)
+  end
+
+  test "GET /users/:id/edit redirect for other user", %{conn: conn} do
+    user = Repo.get(User, 2)
+    conn = get conn, user_path(conn, :edit, user)
+    assert redirected_to(conn) == user_path(conn, :index)
   end
 
   test "PUT /users/:id with valid data", %{conn: conn} do
-    user = Repo.insert %User{}
-    conn = put conn, user_path(conn, :update, user), @valid_params
+    user = Repo.get(User, 1)
+    conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :index)
   end
 
   test "PUT /users/:id with invalid data", %{conn: conn} do
-    user = Repo.insert %User{}
-    conn = put conn, user_path(conn, :update, user), @invalid_params
-    assert html_response(conn, 200) =~ "Edit user"
+    user = Repo.get(User, 1)
+    conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
+    assert redirected_to(conn) == user_path(conn, :index)
   end
 
-  test "DELETE /users/:id", %{conn: conn} do
-    user = Repo.insert %User{}
-    conn = delete conn, user_path(conn, :delete, user)
-    assert redirected_to(conn) == user_path(conn, :index)
-    refute Repo.get(User, user.id)
-  end
 end
