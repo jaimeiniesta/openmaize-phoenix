@@ -4,9 +4,9 @@ defmodule ConnCase.Helper do
   alias Welcome.User
 
   @users [
-    %{id: 1, name: "Gladys", role: "user", password: "mangoes&gooseberries"},
-    %{id: 2, name: "Reg", role: "admin", password: "mangoes&gooseberries"},
-    %{id: 3, name: "Tony", role: "user", password: "mangoes&gooseberries"}
+    %{id: 1, name: "Gladys", role: "user", password: "mangoes&g0oseberries"},
+    %{id: 2, name: "Reg", role: "admin", password: "mangoes&g0oseberries"},
+    %{id: 3, name: "Tony", role: "user", password: "mangoes&g0oseberries"}
   ]
 
   def add_users do

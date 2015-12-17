@@ -18,8 +18,9 @@ defmodule Welcome.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
 
+      import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
     end
@@ -30,7 +31,7 @@ defmodule Welcome.Web do
       use Phoenix.Controller
 
       alias Welcome.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
       import Welcome.Router.Helpers
@@ -63,7 +64,7 @@ defmodule Welcome.Web do
 
       # Alias the data repository and import query/model functions
       alias Welcome.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
     end

@@ -42,7 +42,7 @@
       </div>
 
       <div class="section">
-        <%= @inner %>
+        <%= render @view_module, @view_template, assigns %>
       </div>
       <div class="push"></div>
     </div>
