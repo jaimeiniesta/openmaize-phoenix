@@ -28,6 +28,8 @@ defmodule Welcome.Mixfile do
      {:phoenix_html, "~> 2.2"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
+     {:comeonin, "~> 2.0"},
+     {:not_qwerty123, "~> 1.0"},
      {:openmaize, git: "https://github.com/elixircnx/openmaize.git", branch: "develop"}]
    #{:openmaize, "~> 0.8"}]
   end
