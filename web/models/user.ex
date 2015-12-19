@@ -1,8 +1,7 @@
 defmodule Welcome.User do
   use Welcome.Web, :model
 
-  import Comeonin.Bcrypt
-  import NotQwerty123.PasswordStrength
+  alias Openmaize.Signup
 
   schema "users" do
     field :name, :string
@@ -31,24 +30,6 @@ defmodule Welcome.User do
   def auth_changeset(model, params) do
     model
     |> changeset(params)
-    |> cast(params, ~w(password), [])
-    |> validate_length(:password, min: 8, max: 80)
-    |> put_pass_hash()
-  end
-
-  defp put_pass_hash(changeset) do
-    case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        #put_change(changeset, :password_hash, hashpwsalt(password))
-        check_pword_put_change(changeset, password)
-      _ -> changeset
-    end
-  end
-
-  defp check_pword_put_change(changeset, password, opts \\ []) do
-    case strong_password?(password, opts) do
-      true -> put_change(changeset, :password_hash, hashpwsalt(password))
-      message -> add_error(changeset, :password, message)
-    end
+    |> Signup.create_user(params)
   end
 end
