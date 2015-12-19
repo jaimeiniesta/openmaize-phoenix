@@ -2,11 +2,6 @@ defmodule Welcome.AdminControllerTest do
   use Welcome.ConnCase
 
   import Openmaize.Token.Create
-  alias Welcome.Repo
-  alias Welcome.User
-
-  @valid_attrs %{name: "Bill", password: "^hEsdg*F899", role: "user"}
-  @invalid_attrs %{name: "Albert", password: "password"}
 
   {:ok, user_token} = %{id: 2, name: "Reg", role: "admin"} |> generate_token({0, 86400})
   @user_token user_token
@@ -26,25 +21,4 @@ defmodule Welcome.AdminControllerTest do
     conn = conn() |> get(admin_path(conn, :index))
     assert redirected_to(conn) == login_path(conn, :login)
   end
-
-  test "creates and returns user when data is valid", %{conn: conn} do
-    conn = post conn, admin_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == admin_path(conn, :index)
-    assert Repo.get_by(User, %{name: "Bill"})
-  end
-
-  test "does not create user when data is invalid", %{conn: conn} do
-    conn = post conn, admin_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200)
-    refute Repo.get_by(User, %{name: "Albert"})
-  end
-
-  test "delete user", %{conn: conn} do
-    user = Repo.get(User, 3)
-    conn = conn
-    |> delete(admin_path(conn, :delete, user))
-    assert redirected_to(conn) == admin_path(conn, :index)
-    refute Repo.get(User, user.id)
-  end
-
 end

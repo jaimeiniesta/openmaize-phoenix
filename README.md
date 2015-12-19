@@ -3,17 +3,10 @@
 Examples of using Openmaize authentication / authorization library in a Phoenix web
 application.
 
-There are two examples in this repository:
-
-* A multiple roles example -- on the `master` branch
-  * there are multiple users and one admin
-  * authentication is performed for every page
-    * even unprotected pages authenticate the user
-  * authorization is based on roles and the user id
-* A simple admin example -- on the `simple_admin` branch
-  * there is just one admin
-  * authentication is only performed for the admin page
-    * unprotected pages do not check who the current user is
+This example, on the `simple_admin` branch, is a simple example with just
+one protected page, an admin page. There is no authentication performed
+for any other page, which means that the `current_user` value will only
+be set for the admin page.
 
 ## Openmaize
 
@@ -25,6 +18,7 @@ the most important files to look at are:
 * web/router.ex
   * calling the Openmaize plugs
 * web/controllers/admin_controller.ex
+  * how authorization is handled -- using the plug function `authorize`
   * how the login GET request is handled
   * no logic is needed to handle the login POST request and the logout request
     * these are handled by the Openmaize.LoginoutCheck plug.
@@ -40,11 +34,6 @@ In the `web/router.ex` file, you will see the following Openmaize plugs:
   * authenticate the user using JSON Web Tokens (JWTs)
   * set the `current_user` variable with the information stored in the token
   * if there is no user, `current_user` will be set to nil
-* Openmaize.Authorize -- used on the `simple_admin` branch
-  * check to see if the user is authorized to access the resource / url
-  * this check is based on the user's role
-* Openmaize.Authorize.IdCheck -- used on the `master` branch
-  * perform the Authorize check and then check that the id matches the current user id
 
 ## Installation
 
