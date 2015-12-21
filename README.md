@@ -23,11 +23,14 @@ the most important files to look at are:
 * config/dev.exs
   * configuring Openmaize
 * web/router.ex
-  * calling the Openmaize plugs
+  * calling the Openmaize module plugs
 * web/controllers/admin_controller.ex
+  * how authorization is handled -- using the plug functions from the AccessControl module
   * how the login GET request is handled
   * no logic is needed to handle the login POST request and the logout request
     * these are handled by the Openmaize.LoginoutCheck plug.
+* web/controllers/user_controller.ex
+  * more examples of authorization -- using the plug functions from the AccessControl module
 * web/templates/admin/login.html.eex
   * a login form
 
@@ -40,11 +43,6 @@ In the `web/router.ex` file, you will see the following Openmaize plugs:
   * authenticate the user using JSON Web Tokens (JWTs)
   * set the `current_user` variable with the information stored in the token
   * if there is no user, `current_user` will be set to nil
-* Openmaize.Authorize -- used on the `simple_admin` branch
-  * check to see if the user is authorized to access the resource / url
-  * this check is based on the user's role
-* Openmaize.Authorize.IdCheck -- used on the `master` branch
-  * perform the Authorize check and then check that the id matches the current user id
 
 ## Installation
 
