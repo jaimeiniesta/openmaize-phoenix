@@ -46,9 +46,4 @@ config :openmaize,
   user_model: Welcome.User,
   repo: Welcome.Repo,
   login_dir: "/admin",
-  redirect_pages: %{"admin" => "/admin", "user" => "/users", nil => "/"},
-  protected: %{"/admin" => ["admin"],
-    "/users" => ["admin", "user"],
-    "/users/:id" => ["user"],
-    "/api/users" => ["admin"]
-  }
+  redirect_pages: %{"admin" => "/admin", "user" => "/users", nil => "/"}
