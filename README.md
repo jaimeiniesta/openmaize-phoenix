@@ -44,6 +44,12 @@ In the `web/router.ex` file, you will see the following Openmaize plugs:
   * set the `current_user` variable with the information stored in the token
   * if there is no user, `current_user` will be set to nil
 
+### Optional dependency
+
+This example uses a password strength checker which is an optional dependency of
+Openmaize. If you don't want to use this, just remove the line `{:not_qwerty123, "~> 1.0"}`
+from the deps in the mix.exs file.
+
 ## Installation
 
 Follow these instructions to install this Phoenix app:
@@ -51,8 +57,10 @@ Follow these instructions to install this Phoenix app:
 Edit the `config/dev.exs` and `priv/repo/seeds.exs` files before setting up the database
 and then run the following commands:
 
+    mix deps.get
     mix ecto.setup
     npm install
+    mix phoenix.server
 
 This app uses Stylus as a css preprocessor. If you don't want to use Stylus, remove
 `stylus-brunch`, `jeet` and `rupture` from the package.json file before running
