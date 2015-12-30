@@ -14,10 +14,6 @@ defmodule Welcome.AdminController do
     render(conn, "index.html", users: users)
   end
 
-  def login(conn, _params) do
-    render conn, "login.html"
-  end
-
   def new(conn, _params) do
     render conn, "new.html"
   end

@@ -11,7 +11,7 @@ defmodule Welcome.UserController do
 
   # check current user id for the specified actions
   # remove the show atom to allow other users to view the show page
-  plug :authorize_id, [] when action in [:show, :edit, :update]
+  plug :authorize_id when action in [:show, :edit, :update]
 
   def index(conn, _params) do
     render conn, "index.html"

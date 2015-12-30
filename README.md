@@ -5,12 +5,12 @@ application.
 
 There are two examples in this repository:
 
-* A multiple roles example -- on the `master` branch
+* A multiple roles example - on the `master` branch
   * there are multiple users and one admin
   * authentication is performed for every page
     * even unprotected pages authenticate the user
   * authorization is based on roles and the user id
-* A simple admin example -- on the `simple_admin` branch
+* A simple admin example - on the `simple_admin` branch
   * there is just one admin
   * authentication is only performed for the admin page
     * unprotected pages do not check who the current user is
@@ -23,28 +23,21 @@ the most important files to look at are:
 * config/dev.exs
   * configuring Openmaize
 * web/router.ex
-  * calling the Openmaize module plugs
+  * calling the Openmaize.Authenticate plug
+    * authenticates the user using JSON Web Tokens
+    * sets the `current_user` value - if no user is found, this is set to nil
 * web/controllers/admin_controller.ex
-  * how authorization is handled -- using the plug functions from the AccessControl module
-  * how the login GET request is handled
-  * no logic is needed to handle the login POST request and the logout request
-    * these are handled by the Openmaize.LoginoutCheck plug.
+  * how authorization is handled - using the plug functions from the AccessControl module
+* web/controllers/page_controller.ex
+  * how login and logout is handled - using the Openmaize.Login and Openmaize.Logout plugs
 * web/controllers/user_controller.ex
-  * more examples of authorization -- using the plug functions from the AccessControl module
-* web/templates/admin/login.html.eex
-  * a login form
+  * more examples of authorization - using the plug functions from the AccessControl module
+* web/models/user.ex
+  * how a new user is created - together with the `create` function in the admin_controller file
+* web/templates/page/login.html.eex
+  * the login form
 
-In the `web/router.ex` file, you will see the following Openmaize plugs:
-
-* Openmaize.LoginoutCheck
-  * check to see if path is for the login or logout page
-  * handle login / logout if necessary
-* Openmaize.Authenticate
-  * authenticate the user using JSON Web Tokens (JWTs)
-  * set the `current_user` variable with the information stored in the token
-  * if there is no user, `current_user` will be set to nil
-
-### Optional dependency
+### Optional password strength checker
 
 This example uses a password strength checker which is an optional dependency of
 Openmaize. If you don't want to use this, just remove the line `{:not_qwerty123, "~> 1.0"}`
@@ -65,6 +58,10 @@ and then run the following commands:
 This app uses Stylus as a css preprocessor. If you don't want to use Stylus, remove
 `stylus-brunch`, `jeet` and `rupture` from the package.json file before running
 `npm install` and remove the stylus entry in the `brunch-config.js` file.
+
+If you want to run Sass as a css preprocessor, run the following command:
+
+    npm install --save sass-brunch
 
 ### License
 

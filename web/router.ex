@@ -7,7 +7,6 @@ defmodule Welcome.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Openmaize.LoginoutCheck
     plug Openmaize.Authenticate
   end
 
@@ -15,6 +14,9 @@ defmodule Welcome.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/login", PageController, :login, as: :login
+    post "/login", PageController, :login_user, as: :login
+    get "/logout", PageController, :logout, as: :logout
   end
 
   scope "/users", Welcome do
@@ -27,10 +29,6 @@ defmodule Welcome.Router do
     pipe_through :browser
 
     get "/", AdminController, :index
-    get "/login", AdminController, :login, as: :login
-    post "/login", AdminController, :login_user, as: :login
-    get "/logout", AdminController, :logout, as: :logout
-
     resources "/users", AdminController, only: [:new, :create, :delete]
   end
 
