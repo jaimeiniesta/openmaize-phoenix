@@ -10,7 +10,6 @@ defmodule Welcome.Router do
   end
 
   pipeline :authorize do
-    plug Openmaize.LoginoutCheck
     plug Openmaize.Authenticate
   end
 
@@ -18,15 +17,15 @@ defmodule Welcome.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/login", PageController, :login, as: :login
+    post "/login", PageController, :login_user, as: :login
+    get "/logout", PageController, :logout, as: :logout
   end
 
   scope "/admin", Welcome do
     pipe_through [:browser, :authorize]
 
     get "/", AdminController, :index
-    get "/login", AdminController, :login, as: :login
-    post "/login", AdminController, :login_user, as: :login
-    get "/logout", AdminController, :logout, as: :logout
   end
 
 end

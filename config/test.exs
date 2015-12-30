@@ -22,5 +22,5 @@ config :welcome, Welcome.Repo,
 config :openmaize,
   user_model: Welcome.User,
   repo: Welcome.Repo,
-  login_dir: "/admin",
-  redirect_pages: %{"admin" => "/admin", "user" => "/users", nil => "/"}
+  redirect_pages: %{"admin" => "/admin", "user" => "/users",
+    nil => "/", "login" => "/login"}
