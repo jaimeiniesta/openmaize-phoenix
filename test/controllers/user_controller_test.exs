@@ -8,7 +8,8 @@ defmodule Welcome.UserControllerTest do
   @valid_attrs %{name: "Bill", password: "^hEsdg*F899", role: "user"}
   @invalid_attrs %{name: "Albert", password: "password"}
 
-  {:ok, user_token} = %{id: 1, name: "Gladys", role: "user"} |> generate_token({0, 86400})
+  {:ok, user_token} = %{id: 1, name: "Gladys", role: "user"}
+                      |> generate_token(:name, {0, 86400})
   @user_token user_token
 
   setup do

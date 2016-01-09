@@ -19,16 +19,16 @@ config :welcome, Welcome.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # Openmaize authentication library configuration
+# For more information about configuration, see the documentation
+# for the Openmaize.Config module.
 config :openmaize,
   user_model: Welcome.User,
   repo: Welcome.Repo,
-  # The default unique id is `name`. If you change it, uncomment the following:
-  # unique_id: "login",
 
   # Different roles can be redirected to different locations after login. The following
   # is a map from role to destination. If you add new roles, you should update this map.
   # 
-  # `nil` is the default redirection.
   # The `"login"` key describes where to go after a failed login.
+  # The `"logout"` key describes where to go after logging out.
   redirect_pages: %{"admin" => "/admin", "user" => "/users",
-    nil => "/", "login" => "/login"}
+    "login" => "/login", "logout" => "/"}

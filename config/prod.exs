@@ -22,16 +22,26 @@ config :logger, level: :info
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
-# to the previous section:
+# to the previous section and set your `:url` port to 443:
 #
-#  config :welcome, Welcome.Endpoint,
-#    ...
-#    https: [port: 443,
-#            keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
-#            certfile: System.get_env("SOME_APP_SSL_CERT_PATH")]
+#     config :welcome, Welcome.Endpoint,
+#       ...
+#       url: [host: "example.com", port: 443],
+#       https: [port: 443,
+#               keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
+#               certfile: System.get_env("SOME_APP_SSL_CERT_PATH")]
 #
-# Where those two env variables point to a file on
-# disk for the key and cert.
+# Where those two env variables return an absolute path to
+# the key and cert in disk or a relative path inside priv,
+# for example "priv/ssl/server.key".
+#
+# We also recommend setting `force_ssl`, ensuring no data is
+# ever sent via http, always redirecting to https:
+#
+#     config :welcome, Welcome.Endpoint,
+#       force_ssl: [hsts: true]
+#
+# Check `Plug.SSL` for all available options in `force_ssl`.
 
 # ## Using releases
 #
@@ -45,7 +55,25 @@ config :logger, level: :info
 #
 #     config :welcome, Welcome.Endpoint, server: true
 #
+# You will also need to set the application root to `.` in order
+# for the new static assets to be served after a hot upgrade:
+#
+#     config :welcome, Welcome.Endpoint, root: "."
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
+
+#prod.secret.exs will have the following contents:
+#use Mix.Config
+
+# In this file, we keep production configuration that
+# you likely want to automate and keep it away from
+# your version control system.
+#config :welcome, Welcome.Endpoint,
+  #secret_key_base: secret_key
+
+# you can create the secret_key with the following function:
+#defp random_string(length) do
+  #:crypto.strong_rand_bytes(length) |> Base.encode64 |> binary_part(0, length)
+#end
