@@ -5,11 +5,11 @@ defmodule Welcome.UserControllerTest do
   alias Welcome.Repo
   alias Welcome.User
 
-  @valid_attrs %{name: "Bill", password: "^hEsdg*F899", role: "user"}
-  @invalid_attrs %{name: "Albert", password: "password"}
+  @valid_attrs %{email: "bill@mail.com", password: "^hEsdg*F899", role: "user"}
+  @invalid_attrs %{email: "albert@mail.com", password: "password"}
 
-  {:ok, user_token} = %{id: 1, name: "Gladys", role: "user"}
-                      |> generate_token(:name, {0, 86400})
+  {:ok, user_token} = %{id: 1, email: "gladys@mail.com", role: "user"}
+                      |> generate_token(:email, {0, 86400})
   @user_token user_token
 
   setup do

@@ -3,24 +3,27 @@
 
 users = [
   %{
-    name: "tom",
     email: "tom@mail.com",
+    name: "tom",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "admin",
+    confirmed_at: Ecto.DateTime.utc,
     bio: "I was born in..."
   },
   %{
-    name: "dick",
     email: "dick@mail.com",
+    name: "dick",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
+    confirmed_at: Ecto.DateTime.utc,
     bio: "I was born in..."
   },
   %{
-    name: "harry",
     email: "harry@mail.com",
+    name: "harry",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
+    confirmed_at: Ecto.DateTime.utc,
     bio: "I was born in..."
   }
 ]

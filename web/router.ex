@@ -14,6 +14,7 @@ defmodule Welcome.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/confirm", PageController, :confirm
     get "/login", PageController, :login, as: :login
     post "/login", PageController, :login_user, as: :login
     get "/logout", PageController, :logout, as: :logout

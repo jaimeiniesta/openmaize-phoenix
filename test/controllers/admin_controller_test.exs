@@ -5,11 +5,11 @@ defmodule Welcome.AdminControllerTest do
   alias Welcome.Repo
   alias Welcome.User
 
-  @valid_attrs %{name: "Bill", password: "^hEsdg*F899", role: "user"}
-  @invalid_attrs %{name: "Albert", password: "password"}
+  @valid_attrs %{email: "bill@mail.com", password: "^hEsdg*F899", role: "user"}
+  @invalid_attrs %{email: "albert@mail.com", password: "password"}
 
-  {:ok, user_token} = %{id: 2, name: "Reg", role: "admin"}
-                      |> generate_token(:name, {0, 86400})
+  {:ok, user_token} = %{id: 2, email: "reg@mail.com", role: "admin"}
+                      |> generate_token(:email, {0, 86400})
   @user_token user_token
 
   setup do
@@ -31,13 +31,13 @@ defmodule Welcome.AdminControllerTest do
   test "creates and returns user when data is valid", %{conn: conn} do
     conn = post conn, admin_path(conn, :create), user: @valid_attrs
     assert redirected_to(conn) == admin_path(conn, :index)
-    assert Repo.get_by(User, %{name: "Bill"})
+    assert Repo.get_by(User, %{email: "bill@mail.com"})
   end
 
   test "does not create user when data is invalid", %{conn: conn} do
     conn = post conn, admin_path(conn, :create), user: @invalid_attrs
     assert html_response(conn, 200)
-    refute Repo.get_by(User, %{name: "Albert"})
+    refute Repo.get_by(User, %{email: "albert@mail.com"})
   end
 
   test "delete user", %{conn: conn} do

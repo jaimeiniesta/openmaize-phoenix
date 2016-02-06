@@ -1,6 +1,6 @@
 # Openmaize-phoenix
 
-The latest version of Openmaize, version 0.12, depends on Elixir 1.2.
+The latest version of Openmaize depends on Elixir 1.2.
 
 Examples of using Openmaize authentication / authorization library in a Phoenix web
 application.

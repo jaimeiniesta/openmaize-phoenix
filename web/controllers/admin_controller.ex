@@ -1,7 +1,11 @@
 defmodule Welcome.AdminController do
   use Welcome.Web, :controller
 
+  # import the :authorize plug from the AccessControl module
   import Openmaize.AccessControl
+
+  alias Openmaize.Signup
+  alias Welcome.Mailer
   alias Welcome.User
 
   plug :scrub_params, "user" when action in [:create]
@@ -18,11 +22,14 @@ defmodule Welcome.AdminController do
     render conn, "new.html"
   end
 
-  def create(conn, %{"user" => user_params}) do
-    changeset = User.auth_changeset(%User{}, user_params)
+  def create(conn, %{"user" => %{"email" => email} = user_params}) do
+    {key, link} = Signup.gen_token_link(email)
+    changeset = User.auth_changeset(%User{}, user_params, key)
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
+        IO.inspect user
+        Mailer.ask_confirm(email, link)
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: admin_path(conn, :index))

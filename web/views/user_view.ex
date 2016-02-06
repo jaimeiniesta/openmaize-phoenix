@@ -2,10 +2,13 @@ defmodule Welcome.UserView do
   use Welcome.Web, :view
 
   def user_name(user) do
-    if user[:name] do
-      String.capitalize(user[:name])
+    if user[:email] do
+      user[:email]
+      |> String.split("@")
+      |> hd
+      |> String.capitalize
     else
-      "mate"
+      "The Black Knight"
     end
   end
 end

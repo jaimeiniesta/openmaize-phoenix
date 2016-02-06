@@ -3,12 +3,17 @@ defmodule Welcome.User do
 
   alias Openmaize.Signup
 
+  # IMPORTANT
+  # only add `confirmed_at` to your schema if you are using email confirmation
   schema "users" do
+    field :email, :string
     field :name, :string
     field :role, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-    field :email, :string
+    field :confirmed_at, Ecto.DateTime
+    field :confirmation_token, :string
+    field :confirmation_sent_at, Ecto.DateTime
     field :bio, :string
 
     timestamps
@@ -22,14 +27,15 @@ defmodule Welcome.User do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, ~w(name role), ~w(email bio))
+    |> cast(params, ~w(email role), ~w(name bio))
     |> validate_length(:name, min: 1, max: 100)
-    |> unique_constraint(:name)
+    |> unique_constraint(:email)
   end
 
-  def auth_changeset(model, params) do
+  def auth_changeset(model, params, key) do
     model
     |> changeset(params)
     |> Signup.create_user(params)
+    |> Signup.add_confirm_token(key)
   end
 end

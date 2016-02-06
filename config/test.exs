@@ -32,3 +32,8 @@ config :openmaize,
   # The `"logout"` key describes where to go after logging out.
   redirect_pages: %{"admin" => "/admin", "user" => "/users",
     "login" => "/login", "logout" => "/"}
+
+# Configure mailgun
+config :welcome,
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_key:    System.get_env("MAILGUN_KEY")
