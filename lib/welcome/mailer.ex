@@ -25,6 +25,17 @@ defmodule Welcome.Mailer do
   end
 
   @doc """
+  An email with a link to reset the password.
+  """
+  def ask_reset(email, link) do
+    confirm_url = "http://www.example.com/reset?#{link}"
+    send_email to: email,
+    from: @from,
+    subject: "Reset password",
+    html: Phoenix.View.render_to_string(Welcome.EmailView, "ask_reset.html", %{confirm_url: confirm_url})
+  end
+
+  @doc """
   An email acknowledging that the account has been successfully confirmed.
   """
   def receipt_confirm(email) do

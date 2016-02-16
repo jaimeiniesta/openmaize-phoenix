@@ -15,6 +15,10 @@ defmodule Welcome.Router do
 
     get "/", PageController, :index
     get "/confirm", PageController, :confirm
+    get "/askreset", PageController, :askreset
+    post "/askreset", PageController, :askreset_password
+    get "/reset", PageController, :reset
+    post "/reset", PageController, :reset_password
     get "/login", PageController, :login, as: :login
     post "/login", PageController, :login_user, as: :login
     get "/logout", PageController, :logout, as: :logout

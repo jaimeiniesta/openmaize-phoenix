@@ -14,6 +14,8 @@ defmodule Welcome.User do
     field :confirmed_at, Ecto.DateTime
     field :confirmation_token, :string
     field :confirmation_sent_at, Ecto.DateTime
+    field :reset_token, :string
+    field :reset_sent_at, Ecto.DateTime
     field :bio, :string
 
     timestamps
@@ -37,5 +39,11 @@ defmodule Welcome.User do
     |> changeset(params)
     |> Signup.create_user(params)
     |> Signup.add_confirm_token(key)
+  end
+
+  def reset_changeset(model, params, key) do
+    model
+    |> cast(params, ~w(email), [])
+    |> Signup.add_reset_token(key)
   end
 end

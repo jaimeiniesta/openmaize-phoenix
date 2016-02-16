@@ -10,6 +10,8 @@ defmodule Welcome.Repo.Migrations.CreateUser do
       add :confirmed_at, :datetime
       add :confirmation_token, :string
       add :confirmation_sent_at, :datetime
+      add :reset_token, :string
+      add :reset_sent_at, :datetime
       add :bio, :string
 
       timestamps

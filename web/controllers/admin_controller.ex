@@ -27,8 +27,7 @@ defmodule Welcome.AdminController do
     changeset = User.auth_changeset(%User{}, user_params, key)
 
     case Repo.insert(changeset) do
-      {:ok, user} ->
-        IO.inspect user
+      {:ok, _user} ->
         Mailer.ask_confirm(email, link)
         conn
         |> put_flash(:info, "User created successfully.")

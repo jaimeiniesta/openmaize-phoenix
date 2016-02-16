@@ -26,14 +26,13 @@ defmodule Welcome.Mixfile do
     [{:phoenix, "~> 1.1"},
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, "~> 0.11"},
-     {:phoenix_html, "~> 2.4"},
+     {:phoenix_html, "~> 2.5"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:mailgun, "~> 0.1"},
-     {:not_qwerty123, "~> 1.0"},
      #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
-     {:openmaize, "~> 0.13"}]
+     {:openmaize, "~> 0.14"}]
   end
 
   defp aliases do

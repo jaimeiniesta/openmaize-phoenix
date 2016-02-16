@@ -1,8 +1,17 @@
 defmodule Welcome.PageController do
   use Welcome.Web, :controller
 
-  alias Openmaize.Confirm
+  import Openmaize.Confirm
+  alias Openmaize.Signup
   alias Welcome.Mailer
+  alias Welcome.User
+
+  # in the following two plug functions, `key_expires_after` is set to
+  # 10 minutes simply for testing purposes
+  plug :confirm_email, [key_expires_after: 10,
+    mail_function: &Mailer.receipt_confirm/1] when action in [:confirm]
+  plug :reset_password, [key_expires_after: 10,
+    mail_function: &Mailer.receipt_confirm/1] when action in [:reset_password]
 
   plug Openmaize.Login, [unique_id: :email] when action in [:login_user]
   plug Openmaize.Logout when action in [:logout]
@@ -15,17 +24,26 @@ defmodule Welcome.PageController do
     render conn, "login.html"
   end
 
-  def confirm(conn, _params) do
-    case Confirm.user_email(conn, key_expires_after: 10) do
-      {:ok, _user, email} ->
-        Mailer.receipt_confirm(email)
+  def askreset(conn, _params) do
+    render conn, "askreset_form.html"
+  end
+
+  def askreset_password(conn, %{"user" => %{"email" => email} = user_params}) do
+    {key, link} = Signup.gen_token_link(email)
+    changeset = User.reset_changeset(Repo.get_by(User, email: email), user_params, key)
+
+    case Repo.update(changeset) do
+      {:ok, _user} ->
+        Mailer.ask_reset(email, link)
         conn
-        |> put_flash(:info, "You have successfully confirmed your account.")
-        |> redirect(to: login_path(conn, :login))
-      {:error, message} ->
-        conn
-        |> put_flash(:error, message)
+        |> put_flash(:info, "Check your inbox for instructions on how to reset your password.")
         |> redirect(to: page_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "index.html", changeset: changeset)
     end
+  end
+
+  def reset(conn, %{"email" => email, "key" => key}) do
+    render conn, "reset_form.html", email: email, key: key
   end
 end

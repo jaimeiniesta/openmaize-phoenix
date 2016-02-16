@@ -1,6 +1,6 @@
-<h2>Login</h2>
+<h2>Reset your password</h2>
 
-<%= form_for @conn, login_path(@conn, :login_user), [as: :user], fn f -> %>
+<%= form_for @conn, page_path(@conn, :reset_password), [as: :user], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-error">
       <p>Oops, something went wrong! Please check the errors below:</p>
@@ -13,18 +13,21 @@
   <% end %>
 
   <div class="form-group">
-    <label>Email</label>
-    <%= text_input f, :email, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
     <label>Password</label>
     <%= password_input f, :password, class: "form-control" %>
   </div>
+
+  <div class="form-group">
+    <label>Confirm password</label>
+    <%= password_input f, :confirm_password, class: "form-control" %>
+  </div>
+
+  <%= hidden_input f, :email, value: @email %>
+  <%= hidden_input f, :key, value: @key %>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn" %>
   </div>
 <% end %>
 
-<%= link "Forgot your password?", to: page_path(@conn, :askreset) %>
+<%= link "Back", to: page_path(@conn, :index) %>
