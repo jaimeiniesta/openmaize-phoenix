@@ -7,7 +7,7 @@ defmodule Welcome.User do
   # only add `confirmed_at` to your schema if you are using email confirmation
   schema "users" do
     field :email, :string
-    field :name, :string
+    field :username, :string
     field :role, :string
     field :password, :string, virtual: true
     field :password_hash, :string
@@ -29,8 +29,8 @@ defmodule Welcome.User do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, ~w(email role), ~w(name bio))
-    |> validate_length(:name, min: 1, max: 100)
+    |> cast(params, ~w(email role), ~w(username bio))
+    |> validate_length(:username, min: 1, max: 100)
     |> unique_constraint(:email)
   end
 

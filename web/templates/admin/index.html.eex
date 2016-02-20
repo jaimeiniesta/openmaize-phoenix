@@ -14,7 +14,7 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.name %></td>
+      <td><%= user.username %></td>
       <td><%= user.role %></td>
 
       <td class="text-right">

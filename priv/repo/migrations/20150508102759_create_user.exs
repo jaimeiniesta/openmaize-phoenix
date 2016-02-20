@@ -4,7 +4,7 @@ defmodule Welcome.Repo.Migrations.CreateUser do
   def change do
     create table(:users) do
       add :email, :string
-      add :name, :string
+      add :username, :string
       add :password_hash, :string
       add :role, :string
       add :confirmed_at, :datetime
@@ -18,5 +18,6 @@ defmodule Welcome.Repo.Migrations.CreateUser do
     end
 
     create unique_index :users, [:email]
+    create unique_index :users, [:username]
   end
 end

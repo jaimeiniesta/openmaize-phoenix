@@ -2,9 +2,8 @@ defmodule Welcome.PageController do
   use Welcome.Web, :controller
 
   import Openmaize.Confirm
-  alias Openmaize.Signup
-  alias Welcome.Mailer
-  alias Welcome.User
+  alias Openmaize.{LoginTools, Signup}
+  alias Welcome.{Mailer, User}
 
   # in the following two plug functions, `key_expires_after` is set to
   # 10 minutes simply for testing purposes
@@ -13,7 +12,8 @@ defmodule Welcome.PageController do
   plug :reset_password, [key_expires_after: 10,
     mail_function: &Mailer.receipt_confirm/1] when action in [:reset_password]
 
-  plug Openmaize.Login, [unique_id: :email] when action in [:login_user]
+  #plug Openmaize.Login, [unique_id: :email] when action in [:login_user]
+  plug Openmaize.Login, [unique_id: &LoginTools.email_username/1] when action in [:login_user]
   plug Openmaize.Logout when action in [:logout]
 
   def index(conn, _params) do

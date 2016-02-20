@@ -31,8 +31,8 @@ defmodule Welcome.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:mailgun, "~> 0.1"},
-     #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
-     {:openmaize, "~> 0.14"}]
+     {:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
+   #{:openmaize, "~> 0.14"}]
   end
 
   defp aliases do

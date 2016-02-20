@@ -1,10 +1,10 @@
 # In this example, there are several values for each user.
-# The required values are `name`, `password_hash` and `role`.
+# The required values are `username`, `password_hash` and `role`.
 
 users = [
   %{
     email: "tom@mail.com",
-    name: "tom",
+    username: "tom",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "admin",
     confirmed_at: Ecto.DateTime.utc,
@@ -12,7 +12,7 @@ users = [
   },
   %{
     email: "dick@mail.com",
-    name: "dick",
+    username: "dick",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
     confirmed_at: Ecto.DateTime.utc,
@@ -20,7 +20,7 @@ users = [
   },
   %{
     email: "harry@mail.com",
-    name: "harry",
+    username: "harry",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "user",
     confirmed_at: Ecto.DateTime.utc,

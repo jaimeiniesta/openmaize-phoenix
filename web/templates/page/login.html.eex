@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="form-group">
-    <label>Email</label>
+    <label>Email or username</label>
     <%= text_input f, :email, class: "form-control" %>
   </div>
 
