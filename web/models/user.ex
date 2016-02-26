@@ -1,7 +1,7 @@
 defmodule Welcome.User do
   use Welcome.Web, :model
 
-  alias Openmaize.Signup
+  alias Openmaize.DB
 
   # IMPORTANT
   # only add `confirmed_at` to your schema if you are using email confirmation
@@ -37,13 +37,13 @@ defmodule Welcome.User do
   def auth_changeset(model, params, key) do
     model
     |> changeset(params)
-    |> Signup.create_user(params)
-    |> Signup.add_confirm_token(key)
+    |> DB.add_password_hash(params)
+    |> DB.add_confirm_token(key)
   end
 
   def reset_changeset(model, params, key) do
     model
     |> cast(params, ~w(email), [])
-    |> Signup.add_reset_token(key)
+    |> DB.add_reset_token(key)
   end
 end

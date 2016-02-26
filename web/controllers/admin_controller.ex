@@ -4,7 +4,7 @@ defmodule Welcome.AdminController do
   # import the :authorize plug from the AccessControl module
   import Openmaize.AccessControl
 
-  alias Openmaize.Signup
+  alias Openmaize.ConfirmTools
   alias Welcome.Mailer
   alias Welcome.User
 
@@ -23,7 +23,7 @@ defmodule Welcome.AdminController do
   end
 
   def create(conn, %{"user" => %{"email" => email} = user_params}) do
-    {key, link} = Signup.gen_token_link(email)
+    {key, link} = ConfirmTools.gen_token_link(email)
     changeset = User.auth_changeset(%User{}, user_params, key)
 
     case Repo.insert(changeset) do

@@ -2,7 +2,7 @@ defmodule Welcome.PageController do
   use Welcome.Web, :controller
 
   import Openmaize.Confirm
-  alias Openmaize.{LoginTools, Signup}
+  alias Openmaize.{ConfirmTools, LoginTools}
   alias Welcome.{Mailer, User}
 
   # in the following two plug functions, `key_expires_after` is set to
@@ -29,7 +29,7 @@ defmodule Welcome.PageController do
   end
 
   def askreset_password(conn, %{"user" => %{"email" => email} = user_params}) do
-    {key, link} = Signup.gen_token_link(email)
+    {key, link} = ConfirmTools.gen_token_link(email)
     changeset = User.reset_changeset(Repo.get_by(User, email: email), user_params, key)
 
     case Repo.update(changeset) do
