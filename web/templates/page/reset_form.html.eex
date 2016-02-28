@@ -3,7 +3,7 @@
 <%= form_for @conn, page_path(@conn, :reset_password), [as: :user], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-error">
-      <p>Oops, something went wrong! Please check the errors below:</p>
+      <p>Please check the errors below:</p>
       <ul>
         <%= for {attr, message} <- f.errors do %>
           <li><%= humanize(attr) %> <%= message %></li>

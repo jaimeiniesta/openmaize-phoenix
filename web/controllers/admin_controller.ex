@@ -19,7 +19,8 @@ defmodule Welcome.AdminController do
   end
 
   def new(conn, _params) do
-    render conn, "new.html"
+    changeset = User.changeset(%User{})
+    render conn, "new.html", changeset: changeset
   end
 
   def create(conn, %{"user" => %{"email" => email} = user_params}) do
