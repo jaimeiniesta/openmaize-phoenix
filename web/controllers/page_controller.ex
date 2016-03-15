@@ -1,19 +1,19 @@
 defmodule Welcome.PageController do
   use Welcome.Web, :controller
 
-  import Openmaize.Confirm
-  alias Openmaize.{ConfirmTools, LoginTools}
+  import Welcome.Authorize
+  alias Openmaize.Login.Name
   alias Welcome.{Mailer, User}
 
   # in the following two plug functions, `key_expires_after` is set to
   # 10 minutes simply for testing purposes
-  plug :confirm_email, [key_expires_after: 10,
+  plug Openmaize.ConfirmEmail, [key_expires_after: 10,
     mail_function: &Mailer.receipt_confirm/1] when action in [:confirm]
-  plug :reset_password, [key_expires_after: 10,
+  plug Openmaize.ResetPassword, [key_expires_after: 10,
     mail_function: &Mailer.receipt_confirm/1] when action in [:reset_password]
 
   #plug Openmaize.Login, [unique_id: :email] when action in [:login_user]
-  plug Openmaize.Login, [unique_id: &LoginTools.email_username/1] when action in [:login_user]
+  plug Openmaize.Login, [unique_id: &Name.email_username/1] when action in [:login_user]
   plug Openmaize.Logout when action in [:logout]
 
   def index(conn, _params) do
@@ -24,12 +24,24 @@ defmodule Welcome.PageController do
     render conn, "login.html"
   end
 
+  def login_user(conn, params) do
+    handle_login conn, params
+  end
+
+  def logout(conn, params) do
+    handle_logout conn, params
+  end
+
+  def confirm(conn, params) do
+    handle_confirm conn, params
+  end
+
   def askreset(conn, _params) do
     render conn, "askreset_form.html"
   end
 
   def askreset_password(conn, %{"user" => %{"email" => email} = user_params}) do
-    {key, link} = ConfirmTools.gen_token_link(email)
+    {key, link} = Openmaize.ConfirmEmail.gen_token_link(email)
     changeset = User.reset_changeset(Repo.get_by(User, email: email), user_params, key)
 
     case Repo.update(changeset) do
@@ -45,5 +57,9 @@ defmodule Welcome.PageController do
 
   def reset(conn, %{"email" => email, "key" => key}) do
     render conn, "reset_form.html", email: email, key: key
+  end
+
+  def reset_password(conn, params) do
+    handle_reset conn, params
   end
 end

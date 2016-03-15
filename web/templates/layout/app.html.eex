@@ -32,7 +32,7 @@
       <div class="hero">
         <div class="hero-inner">
           <h1>Openmaize</h1>
-          <h2>Authentication and authorization library for Elixir</h2>
+          <h2>Authentication library for Elixir</h2>
         </div>
       </div>
 

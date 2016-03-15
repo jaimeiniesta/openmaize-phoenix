@@ -1,7 +1,7 @@
 defmodule Welcome.AdminControllerTest do
   use Welcome.ConnCase
 
-  import Openmaize.Token.Create
+  import Openmaize.JWT.Create
   alias Welcome.Repo
   alias Welcome.User
 
@@ -9,7 +9,7 @@ defmodule Welcome.AdminControllerTest do
   @invalid_attrs %{email: "albert@mail.com", password: "password"}
 
   {:ok, user_token} = %{id: 2, email: "reg@mail.com", role: "admin"}
-                      |> generate_token(:email, {0, 86400})
+                      |> generate_token({0, 86400})
   @user_token user_token
 
   setup do

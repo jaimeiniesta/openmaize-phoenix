@@ -1,30 +1,26 @@
 defmodule Welcome.AdminController do
   use Welcome.Web, :controller
 
-  # import the :authorize plug from the AccessControl module
-  import Openmaize.AccessControl
-
-  alias Openmaize.ConfirmTools
-  alias Welcome.Mailer
-  alias Welcome.User
+  import Welcome.Authorize
+  alias Openmaize.ConfirmEmail
+  alias Welcome.{Mailer, User}
 
   plug :scrub_params, "user" when action in [:create]
 
-  # only users with the admin role can access resources in this module
-  plug :authorize, roles: ["admin"]
+  def action(conn, _), do: authorize_action conn, ["admin"], __MODULE__
 
-  def index(conn, _params) do
+  def index(conn, _params, _user) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)
   end
 
-  def new(conn, _params) do
+  def new(conn, _params, _user) do
     changeset = User.changeset(%User{})
     render conn, "new.html", changeset: changeset
   end
 
-  def create(conn, %{"user" => %{"email" => email} = user_params}) do
-    {key, link} = ConfirmTools.gen_token_link(email)
+  def create(conn, %{"user" => %{"email" => email} = user_params}, _user) do
+    {key, link} = ConfirmEmail.gen_token_link(email)
     changeset = User.auth_changeset(%User{}, user_params, key)
 
     case Repo.insert(changeset) do
@@ -38,7 +34,7 @@ defmodule Welcome.AdminController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => id}, _user) do
     user = Repo.get(User, id)
     Repo.delete(user)
 

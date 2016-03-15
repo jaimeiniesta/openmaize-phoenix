@@ -1,34 +1,30 @@
 defmodule Welcome.UserController do
   use Welcome.Web, :controller
 
-  import Openmaize.AccessControl
+  import Welcome.Authorize
   alias Welcome.User
 
   plug :scrub_params, "user" when action in [:update]
+  plug :id_check when action in [:show, :edit, :update]
 
-  # users with either admin or user roles can access any resource in this module
-  plug :authorize, roles: ["admin", "user"]
+  def action(conn, _), do: authorize_action conn, ["admin", "user"], __MODULE__
 
-  # check current user id for the specified actions
-  # remove the show atom to allow other users to view the show page
-  plug :authorize_id when action in [:show, :edit, :update]
-
-  def index(conn, _params) do
+  def index(conn, _params, _user) do
     render conn, "index.html"
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, _user) do
     user = Repo.get(User, id)
     render(conn, "show.html", user: user)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => id}, _user) do
     user = Repo.get(User, id)
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
+  def update(conn, %{"id" => id, "user" => user_params}, _user) do
     user = Repo.get(User, id)
     changeset = User.changeset(user, user_params)
 
@@ -41,5 +37,4 @@ defmodule Welcome.UserController do
         render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
-
 end

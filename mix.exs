@@ -3,7 +3,7 @@ defmodule Welcome.Mixfile do
 
   def project do
     [app: :welcome,
-     version: "0.5.0",
+     version: "0.6.0",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -28,12 +28,12 @@ defmodule Welcome.Mixfile do
      {:postgrex, "~> 0.11"},
      {:phoenix_html, "~> 2.5"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.9"},
+     {:gettext, "~> 0.10"},
      {:cowboy, "~> 1.0"},
      {:mailgun, "~> 0.1"},
-     {:not_qwerty123, "~> 1.0"},
-     {:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
-   #{:openmaize, "~> 0.16"}]
+     {:not_qwerty123, "~> 1.1"},
+     #{:openmaize, git: "https://github.com/elixircnx/openmaize.git"}]
+     {:openmaize, "~> 0.16"}]
   end
 
   defp aliases do
