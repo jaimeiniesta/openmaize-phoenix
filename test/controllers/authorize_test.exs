@@ -1,37 +1,76 @@
 defmodule Welcome.AuthorizeTest do
   use Welcome.ConnCase
 
-  test "authorize_action succeeds when current_user has the right role" do
+  import Openmaize.{DB, JWT.Create}
+  alias Welcome.{Repo, User}
+
+  @valid_attrs %{email: "tony@mail.com", password: "mangoes&g0oseberries"}
+  @invalid_attrs %{email: "tony@mail.com", password: "maaaangoes&g00zeberries"}
+
+  {:ok, user_token} = %{id: 3, email: "tony@mail.com", role: "user"}
+                      |> generate_token({0, 86400})
+  @user_token user_token
+
+  setup do
+    conn = conn()
+    |> put_req_cookie("access_token", @user_token)
+    {:ok, conn: conn}
   end
 
-  test "authorize_action fails when current_user is nil" do
+  # The first three tests can be used to test routes protected by
+  # the role_check plug or the custom action (authorize_action) function
+  test "correct user role is successfully authorized", %{conn: conn} do
+    conn = get conn, "/users"
+    assert html_response(conn, 200)
   end
 
-  test "authorize_action fails when current_user is not the correct role" do
+  test "authorization for incorrect role fails", %{conn: conn} do
+    conn = get conn, "/admin"
+    assert redirected_to(conn) == "/users"
   end
 
-  test "id_check succeeds for correct id" do
+  test "authorization for nil user fails" do
+    conn = conn() |> get("/users")
+    assert redirected_to(conn) == "/login"
   end
 
-  test "id_check fails for incorrect id" do
+  # Test routes protected by the id_check plug
+  test "id check succeeds", %{conn: conn} do
+    conn = get conn, "/users/3"
+    assert html_response(conn, 200)
   end
 
-  test "handle_login redirects to user's role's page on login" do
+  test "id check fails for incorrect id", %{conn: conn} do
+    conn = get conn, "/users/30"
+    assert redirected_to(conn) == "/users"
   end
 
-  test "handle_login fails if there is an error message" do
+  test "id check fails for nil user" do
+    conn = conn() |> get("/users/3")
+    assert redirected_to(conn) == "/login"
   end
 
-  test "handle_confirm redirects to the login page if successful" do
+  test "login succeeds" do
+    # Remove the Repo.get_by line if you are not using email confirmation
+    Repo.get_by(User, %{email: "tony@mail.com"}) |> user_confirmed
+    conn = post conn, "/login", user: @valid_attrs
+    assert redirected_to(conn) == "/users"
   end
 
-  test "handle_confirm fails if there is an error message" do
+  test "login fails" do
+    # Remove the Repo.get_by line if you are not using email confirmation
+    Repo.get_by(User, %{email: "reg@mail.com"}) |> user_confirmed
+    conn = post conn, "/login", user: @invalid_attrs
+    assert redirected_to(conn) == "/login"
   end
 
-  test "handle_reset redirects to the login page if successful" do
-  end
-
-  test "handle_reset rerenders the reset password form if there is an error" do
+  test "logout succeeds" do
+  {:ok, user_token} = %{id: 3, email: "tony@mail.com", role: "user"}
+                      |> generate_token({0, 86400})
+    conn = conn()
+    |> put_req_cookie("access_token", user_token)
+    |> get("/logout")
+    assert redirected_to(conn) == "/"
   end
 
 end

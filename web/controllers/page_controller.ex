@@ -1,7 +1,7 @@
 defmodule Welcome.PageController do
   use Welcome.Web, :controller
 
-  import Welcome.Authorize
+  import Welcome.{Authorize, Confirm}
   alias Openmaize.Login.Name
   alias Welcome.{Mailer, User}
 

@@ -9,7 +9,7 @@
   "gettext": {:hex, :gettext, "0.10.0"},
   "mailgun": {:hex, :mailgun, "0.1.2"},
   "not_qwerty123": {:hex, :not_qwerty123, "1.1.0"},
-  "openmaize": {:git, "https://github.com/elixircnx/openmaize.git", "4483ba3504f5dc7be93cbbd7f4164373c9178999", [branch: "noredirects"]},
+  "openmaize": {:hex, :openmaize, "0.17.1"},
   "phoenix": {:hex, :phoenix, "1.1.4"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "2.0.1"},
   "phoenix_html": {:hex, :phoenix_html, "2.5.0"},

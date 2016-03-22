@@ -1,7 +1,6 @@
 defmodule ConnCase.Helper do
 
-  alias Welcome.Repo
-  alias Welcome.User
+  alias Welcome.{Repo, User}
 
   @users [
     %{id: 1, email: "gladys@mail.com", role: "user", password: "mangoes&g0oseberries"},
@@ -10,8 +9,12 @@ defmodule ConnCase.Helper do
   ]
 
   def add_users do
+    key = "pu9-VNdgE8V9qZo19rlcg3KUNjpxuixg"
     for user <- @users do
-      %User{} |> User.auth_changeset(user, "") |> Repo.insert!
+      %User{}
+      |> User.auth_changeset(user, key)
+      |> User.reset_changeset(user, key)
+      |> Repo.insert!
     end
   end
 
