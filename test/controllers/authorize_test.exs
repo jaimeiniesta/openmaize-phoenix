@@ -1,7 +1,8 @@
 defmodule Welcome.AuthorizeTest do
   use Welcome.ConnCase
 
-  import Openmaize.{DB, JWT.Create}
+  import Openmaize.DB
+  import OpenmaizeJWT.Create
   alias Welcome.{Repo, User}
 
   @valid_attrs %{email: "tony@mail.com", password: "mangoes&g0oseberries"}

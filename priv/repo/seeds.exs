@@ -7,6 +7,8 @@ users = [
     username: "tom",
     password_hash: Comeonin.Bcrypt.hashpwsalt("mangoes"),
     role: "admin",
+    otp_required: true,
+    otp_secret: Comeonin.Otp.gen_secret,
     confirmed_at: Ecto.DateTime.utc,
     bio: "I was born in..."
   },

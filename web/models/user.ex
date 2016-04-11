@@ -17,6 +17,8 @@ defmodule Welcome.User do
     field :reset_token, :string
     field :reset_sent_at, Ecto.DateTime
     field :bio, :string
+    field :otp_required, :boolean
+    field :otp_secret, :string
 
     timestamps
   end

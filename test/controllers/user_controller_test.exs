@@ -1,7 +1,7 @@
 defmodule Welcome.UserControllerTest do
   use Welcome.ConnCase
 
-  import Openmaize.JWT.Create
+  import OpenmaizeJWT.Create
   alias Welcome.Repo
   alias Welcome.User
 

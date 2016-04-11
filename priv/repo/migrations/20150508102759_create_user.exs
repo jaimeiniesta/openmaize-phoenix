@@ -13,6 +13,8 @@ defmodule Welcome.Repo.Migrations.CreateUser do
       add :reset_token, :string
       add :reset_sent_at, :datetime
       add :bio, :string
+      add :otp_required, :boolean
+      add :otp_secret, :string
 
       timestamps
     end

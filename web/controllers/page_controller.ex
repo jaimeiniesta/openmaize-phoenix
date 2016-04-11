@@ -5,15 +5,14 @@ defmodule Welcome.PageController do
   alias Openmaize.Login.Name
   alias Welcome.{Mailer, User}
 
-  # in the following two plug functions, `key_expires_after` is set to
-  # 10 minutes simply for testing purposes
-  plug Openmaize.ConfirmEmail, [key_expires_after: 10,
+  plug Openmaize.ConfirmEmail, [key_expires_after: 30,
     mail_function: &Mailer.receipt_confirm/1] when action in [:confirm]
-  plug Openmaize.ResetPassword, [key_expires_after: 10,
+  plug Openmaize.ResetPassword, [key_expires_after: 30,
     mail_function: &Mailer.receipt_confirm/1] when action in [:reset_password]
 
   #plug Openmaize.Login, [unique_id: :email] when action in [:login_user]
   plug Openmaize.Login, [unique_id: &Name.email_username/1] when action in [:login_user]
+  plug Openmaize.OnetimePass when action in [:login_twofa]
   plug Openmaize.Logout when action in [:logout]
 
   def index(conn, _params) do
@@ -25,6 +24,10 @@ defmodule Welcome.PageController do
   end
 
   def login_user(conn, params) do
+    handle_login conn, params
+  end
+
+  def login_twofa(conn, params) do
     handle_login conn, params
   end
 

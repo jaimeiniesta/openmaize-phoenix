@@ -21,6 +21,8 @@ defmodule Welcome.Router do
     post "/reset", PageController, :reset_password
     get "/login", PageController, :login, as: :login
     post "/login", PageController, :login_user, as: :login
+    get "/twofa", PageController, :twofa
+    post "/twofa", PageController, :login_twofa
     get "/logout", PageController, :logout, as: :logout
   end
 
