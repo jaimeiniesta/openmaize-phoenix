@@ -16,7 +16,7 @@ defmodule Welcome.Mixfile do
   def application do
     [mod: {Welcome, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :openmaize]]
+                    :phoenix_ecto, :postgrex, :openmaize, :openmaize_jwt]]
   end
 
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
@@ -32,9 +32,8 @@ defmodule Welcome.Mixfile do
      {:cowboy, "~> 1.0"},
      {:mailgun, "~> 0.1"},
      {:not_qwerty123, "~> 1.1"},
-     {:openmaize_jwt, "~> 0.8"},
-     {:openmaize, git: "https://github.com/elixircnx/openmaize.git", branch: "develop"}]
-   #{:openmaize, "~> 0.16"}]
+     {:openmaize_jwt, "~> 0.9"},
+     {:openmaize, "~> 0.18"}]
   end
 
   defp aliases do
