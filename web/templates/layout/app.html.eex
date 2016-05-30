@@ -21,7 +21,7 @@
             <li><a href="<%= admin_path @conn, :index %>">Admin</a></li>
               <%= if @current_user do %>
               <li><a href="<%= user_path(@conn, :show, @current_user[:id]) %>"><%= user_name @current_user %></a></li>
-              <li><a href="<%= logout_path @conn, :logout %>">Logout</a></li>
+              <li><%= link "Logout", to: logout_path(@conn, :logout), method: :delete %></li>
               <%= else %>
               <li><a href="<%= login_path @conn, :login %>">Login</a></li>
               <%= end %>

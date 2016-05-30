@@ -23,7 +23,7 @@ defmodule Welcome.Router do
     post "/login", PageController, :login_user, as: :login
     get "/twofa", PageController, :twofa
     post "/twofa", PageController, :login_twofa
-    get "/logout", PageController, :logout, as: :logout
+    delete "/logout", PageController, :logout, as: :logout
   end
 
   scope "/users", Welcome do
